@@ -1,6 +1,5 @@
 .bodyLogin {
-  background-position: cover;
-  filter: blur(2px);
+  filter: blur(0px);
   width: 100%;
   height: 100vh;
 }

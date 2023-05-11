@@ -65,11 +65,11 @@ const Login = () => {
             <p>Accedi a FoodBall</p>
             <form>
               <div class="user-box">
-                <input required="" name="" type="text" onChange={(e)=> setUsername(e.target.value)}/>
+                <input required="" name="" type="text" onClick={() => setErroreLogin(false)} onChange={(e)=> setUsername(e.target.value)}/>
                 <label>Username</label>
               </div>
               <div class="user-box">
-                <input required="" name="" type="password" onChange={(e)=> setPassword(e.target.value)}/>
+                <input required="" name="" type="password" onClick={() => setErroreLogin(false)} onChange={(e)=> setPassword(e.target.value)}/>
                 <label>Password</label>
               </div>
               <a onClick={() => handleClick()}>
@@ -86,7 +86,7 @@ const Login = () => {
                 Registrati!
               </a>
             </p>
-            {erroreLogin === true && <p> Username o password errata!</p>}
+            {erroreLogin === true && <p className="text-danger"> Username o password errata!</p>}
           </div>
         </Row>
       </Container>
