@@ -1,7 +1,16 @@
-import "./Login.css"
+import "./Login.css";
+import {Container, Row, Col} from 'react-bootstrap';
 const Login = () => {
 
-    return (<div className="ciao">LOGIN</div>)
+    return (
+        <Container>
+            <Row>
+                <Col>
+                
+                </Col>
+            </Row>
+        </Container>
+    )
 
 }
 
