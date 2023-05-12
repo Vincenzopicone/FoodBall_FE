@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { CgProfile } from "react-icons/cg";
 import { BsBook } from "react-icons/bs";
 import { FiPower } from "react-icons/fi";
+import { GiSoccerBall } from "react-icons/gi";
+import { MdRestaurantMenu } from "react-icons/md";
 import PicFoto from "../assets/ProfilePic.png";
 import { LOGOUT_MY_PROFILE } from "../../redux/action";
 import { useNavigate } from "react-router-dom";
+import "./HomePageUse.css";
 
 const HomePageUser = () => {
   const dispatch = useDispatch();
@@ -37,7 +40,7 @@ const HomePageUser = () => {
           </Row>
           <Row className="border-bottom mb-3 py-2">
             <h6 className="text-secondary me-3">
-              <span>
+              <span className="iconSectionProfile">
                 <CgProfile />{" "}
               </span>
               I miei dati personali
@@ -45,7 +48,7 @@ const HomePageUser = () => {
           </Row>
           <Row className="border-bottom mb-3 py-2">
             <h6 className="text-secondary me-3">
-              <span>
+              <span className="iconSectionProfile">
                 <BsBook />{" "}
               </span>
               Le mie prenotazioni{" "}
@@ -54,21 +57,21 @@ const HomePageUser = () => {
           </Row>
           <Row className="border-bottom mb-3 py-2">
             <h6 className="text-secondary me-3">
-              <span>
-                <CgProfile />{" "}
+              <span className="iconSectionProfile">
+                <MdRestaurantMenu />{" "}
               </span>
               I miei ristoranti preferiti
             </h6>
           </Row>
           <Row className="border-bottom mb-3 py-2">
             <h6 className="text-secondary me-3">
-              <span>
-                <CgProfile />{" "}
+              <span className="iconSectionProfile">
+                <GiSoccerBall />{" "}
               </span>
               Le mie squadre preferite
             </h6>
           </Row>
-          <Row className="d-flex justify-content-center">
+          <Row className="d-flex justify-content-center pt-3">
             <Col xs={6}>
               <Button
                 onClick={() => logoutClick()}
