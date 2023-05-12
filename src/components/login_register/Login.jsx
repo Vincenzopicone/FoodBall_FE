@@ -15,14 +15,11 @@ const Login = () => {
   const [invioLogin, setInvioLogin] = useState(false);
 
   const fieldClickError = () => {
-    setErroreLogin(false)
-    // setUsername("")
-    // setPassword("")
-  }
-  
+    setErroreLogin(false);
+  };
+
   const handleClick = (e) => {
     setInvioLogin(!invioLogin);
-
   };
 
   const postLogin = async () => {
@@ -43,17 +40,17 @@ const Login = () => {
         const data = await response.json();
         setResponseLogin(data.roles[0].roleName);
         dispatch({ type: SAVE_MY_PROFILE, payload: data });
-        console.log(data)
+        console.log(data);
         setInvioLogin(false);
-        setErroreLogin(false)
+        setErroreLogin(false);
       } else {
-        setErroreLogin(true)  
+        setErroreLogin(true);
       }
     } catch (error) {}
   };
 
   useEffect(() => {
-    if(invioLogin === true) {
+    if (invioLogin === true) {
       postLogin();
     }
 
@@ -62,10 +59,8 @@ const Login = () => {
     } else if (responseLogin === "ROLE_ADMIN") {
       navigate("/homepageadmin");
     }
-    setErroreLogin(false)
+    setErroreLogin(false);
   }, [invioLogin]);
-
-
 
   return (
     <>
@@ -76,11 +71,25 @@ const Login = () => {
             <p>Accedi a FoodBall</p>
             <form>
               <div class="user-box">
-                <input defaultValue={username} required="" name="" type="text" onClick={() => fieldClickError()} onChange={(e)=> setUsername(e.target.value)}/>
+                <input
+                  defaultValue={username}
+                  required=""
+                  name=""
+                  type="text"
+                  onClick={() => fieldClickError()}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
                 <label>Username</label>
               </div>
               <div class="user-box">
-                <input defaultValue={password} required="" name="" type="password" onClick={() => fieldClickError()} onChange={(e)=> setPassword(e.target.value)}/>
+                <input
+                  defaultValue={password}
+                  required=""
+                  name=""
+                  type="password"
+                  onClick={() => fieldClickError()}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <label>Password </label>
               </div>
               <a onClick={() => handleClick()}>
@@ -97,7 +106,9 @@ const Login = () => {
                 Registrati!
               </a>
             </p>
-            {erroreLogin === true && <p className="text-danger"> Username o password errata!</p>}
+            {erroreLogin === true && (
+              <p className="text-danger"> Username o password errata!</p>
+            )}
           </div>
         </Row>
       </Container>

@@ -1,4 +1,5 @@
 import { SAVE_MY_PROFILE, LOGOUT_MY_PROFILE } from "../action";
+import { SHOW_RESERVATION } from "../action";
 
 const initialState = {
   myProfile: {},
