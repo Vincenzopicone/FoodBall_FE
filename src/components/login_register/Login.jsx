@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import "./LoginRegister.css";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SAVE_MY_PROFILE } from "../../redux/action";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +14,12 @@ const Login = () => {
   const [responseLogin, setResponseLogin] = useState();
   const [invioLogin, setInvioLogin] = useState(false);
 
+  const fieldClickError = () => {
+    setErroreLogin(false)
+    // setUsername("")
+    // setPassword("")
+  }
+  
   const handleClick = (e) => {
     setInvioLogin(!invioLogin);
 
@@ -33,6 +42,8 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         setResponseLogin(data.roles[0].roleName);
+        dispatch({ type: SAVE_MY_PROFILE, payload: data });
+        console.log(data)
         setInvioLogin(false);
         setErroreLogin(false)
       } else {
@@ -65,12 +76,12 @@ const Login = () => {
             <p>Accedi a FoodBall</p>
             <form>
               <div class="user-box">
-                <input required="" name="" type="text" onClick={() => setErroreLogin(false)} onChange={(e)=> setUsername(e.target.value)}/>
+                <input defaultValue={username} required="" name="" type="text" onClick={() => fieldClickError()} onChange={(e)=> setUsername(e.target.value)}/>
                 <label>Username</label>
               </div>
               <div class="user-box">
-                <input required="" name="" type="password" onClick={() => setErroreLogin(false)} onChange={(e)=> setPassword(e.target.value)}/>
-                <label>Password</label>
+                <input defaultValue={password} required="" name="" type="password" onClick={() => fieldClickError()} onChange={(e)=> setPassword(e.target.value)}/>
+                <label>Password </label>
               </div>
               <a onClick={() => handleClick()}>
                 <span></span>

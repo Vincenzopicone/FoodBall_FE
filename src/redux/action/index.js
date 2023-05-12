@@ -1,1 +1,2 @@
-export const variabile = ""
+export const SAVE_MY_PROFILE = "SAVE_MY_PROFILE";
+export const LOGOUT_MY_PROFILE = "LOGOUT_MY_PROFILE";

@@ -10,9 +10,11 @@ const Register = () => {
     const [nome, setNome] = useState("");
     const [cognome, setCognome] = useState("");
     const [role, setRole] = useState([]);
+    const [roleSelect, setRoleSelect] = useState("");
     const [invioRegister, setInvioRegister] = useState(false);
     const handleSelect = (event) => {
-        role.push(event)
+      setRoleSelect(event)
+      role.push(event)
     }
     const sendRegister = () => {
         setInvioRegister(!invioRegister);
@@ -62,7 +64,12 @@ const Register = () => {
           <div class="login-box">
             <p>Registrati a FoodBall</p>
             <form>
-              <div class="user-box">
+            <select className="p-1 rounded mb-2" onChange={(e) => handleSelect(e.target.value)}>
+                <option selected>Sei un utente o un ristoratore?</option>
+                <option value={"ROLE_USER"}>UTENTE</option>
+                <option value={"ROLE_ADMIN"}> RISTORATORE </option>
+              </select>
+              <div class="user-box mt-3">
                 <input required="" name="" type="text" onChange={(e)=> setUsername(e.target.value)}/>
                 <label>Username</label>
               </div>
@@ -74,19 +81,15 @@ const Register = () => {
                 <input required="" name="" type="email" onChange={(e)=> setEmail(e.target.value)}/>
                 <label>Email</label>
               </div>
-              <div class="user-box">
+              {roleSelect === "ROLE_USER" && <div class="user-box">
                 <input required="" name="" type="text" onChange={(e)=> setNome(e.target.value)}/>
-                <label>Nome</label>
-              </div>
-              <div class="user-box">
-                <input required="" name="" type="text" onChange={(e)=> setCognome(e.target.value)}/>
-                <label>Cognome</label>
-              </div>
-              <select className="p-1 rounded" onChange={(e) => handleSelect(e.target.value)}>
-                <option selected>Sei un utente o un ristoratore?</option>
-                <option value={"ROLE_USER"}>UTENTE</option>
-                <option value={"ROLE_ADMIN"}> RISTORATORE </option>
-              </select>
+                <label>Nome e Cognome</label>
+                </div> }
+                {roleSelect === "ROLE_ADMIN" && <div class="user-box">
+                <input required="" name="" type="text" onChange={(e)=> setNome(e.target.value)}/>
+                <label>Nome Ristorante</label>
+                </div> }
+         
               <a onClick={() => sendRegister()}>
                 <span></span>
                 <span></span>
