@@ -26,6 +26,7 @@ const Sidebar = (props) => {
   const clickShowReservation = (e) => {
     setStateReservation(e);
     dispatch({ type: SHOW_RESERVATION, payload: stateReservation });
+    dispatch({ type: SHOW_CREATE_RESERVATION, payload: !stateReservation });
   };
   const clickShowCreateReservation = (e) => {
     setStateCreateReservation(e);
@@ -33,6 +34,7 @@ const Sidebar = (props) => {
       type: SHOW_CREATE_RESERVATION,
       payload: stateCreateReservation,
     });
+    dispatch({ type: SHOW_RESERVATION, payload: !stateCreateReservation });
   };
 
   const logoutClick = () => {
@@ -45,7 +47,7 @@ const Sidebar = (props) => {
         <img
           className="rounded-circle mb-3"
           src={PicFoto}
-          style={{ height: "130px", width: "160px" }}
+          style={{ height: "90px", width: "120px" }}
           alt="PlaceHolder profilo"
         />
         <h6>Bentornato,</h6>{" "}
@@ -97,7 +99,7 @@ const Sidebar = (props) => {
           <Button
             onClick={() => logoutClick()}
             variant={"outline-secondary"}
-            className="d-flex justify-content-center align-item-end rounded-pill"
+            className="d-flex justify-content-center align-item-end rounded"
           >
             <span className="me-2">
               <FiPower />
