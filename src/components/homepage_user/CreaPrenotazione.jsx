@@ -11,7 +11,7 @@ const CreaPrenotazione = () => {
 
   // stati per ricerca evento
   const [eventState, setEventState] = useState();
-  const [eventCity, setEventCity] = useState("");
+  const [eventCity, setEventCity] = useState("Milano");
   const [event, setEvent] = useState([]);
   const showCardEventState = useSelector((state) => state.show.showCardEvent);
   const handleChangeEvent = (e) => {

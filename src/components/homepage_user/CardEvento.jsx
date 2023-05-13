@@ -10,14 +10,11 @@ const CardEvento = (props) => {
   const myProfile = useSelector((state) => state.app.myProfile);
   const [utente, setUtente] = useState({
     username: myProfile.username,
-    email: myProfile.email,
-    name: myProfile.name,
   });
   const token = useSelector((state) => state.app.myProfile.accessToken);
   const [today, setToday] = useState(moment().format("YYYY-MM-DD"));
-  console.log(today);
   const [postiSelezionati, setPostiSelezionati] = useState("");
-  console.log("postiselezionati", postiSelezionati);
+
   const [invioReservation, setInvioReservation] = useState(false);
   moment.locale("it");
   // setto numero max posti prenotabili
@@ -25,13 +22,18 @@ const CardEvento = (props) => {
   for (let i = 1; i < 16; i++) {
     postiPrenotati.push(i);
   }
-  const [reservation, setReservation] = useState();
+  const [reservation, setReservation] = useState({});
+  const [dataPartita, setDataPartita] = useState();
 
   const saveReservation = (e) => {
     setReservation(e);
-    setInvioReservation(!reservation);
-    console.log("reservation", reservation);
-    console.log("myprofile", utente);
+    setDataPartita(reservation.partita?.data);
+    setInvioReservation(true);
+    console.log("evento", reservation);
+    console.log("utente", utente);
+    console.log("data", today);
+    console.log("dataevento", dataPartita);
+    console.log("postiselezionati", postiSelezionati);
   };
 
   const handleSelectChange = (e) => {
@@ -41,7 +43,7 @@ const CardEvento = (props) => {
   const postAddRservation = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/prenotazione/prenota",
+        "http://localhost:8080/api/prenotazione/prenotaora",
         {
           method: "POST",
           headers: {
@@ -50,10 +52,10 @@ const CardEvento = (props) => {
             Authorization: `Bearer ${token}`,
             body: JSON.stringify({
               utente: utente,
-              dataprenotazione: today,
-              dataevento: reservation.partita.data,
-              numeropersone: postiSelezionati,
               evento: reservation,
+              // dataevento: dataPartita,
+              // dataprenotazione: today,
+              numeropersone: postiSelezionati,
             }),
           },
         }
@@ -61,12 +63,17 @@ const CardEvento = (props) => {
 
       if (response.ok) {
         const data = await response.json();
+        setInvioReservation(false);
+      } else {
+        setInvioReservation(false);
       }
     } catch {}
   };
 
   useEffect(() => {
-    postAddRservation();
+    if (invioReservation === true) {
+      postAddRservation();
+    }
   }, [invioReservation]);
   return (
     <Container fluid>
