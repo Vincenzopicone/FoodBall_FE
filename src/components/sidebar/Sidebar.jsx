@@ -10,6 +10,7 @@ import {
   LOGOUT_MY_PROFILE,
   SHOW_RESERVATION,
   SHOW_CREATE_RESERVATION,
+  REFRESH_RESERVATION,
 } from "../../redux/action";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
@@ -20,6 +21,7 @@ const Sidebar = (props) => {
   const navigate = useNavigate();
   const [stateReservation, setStateReservation] = useState(false);
   const [stateCreateReservation, setStateCreateReservation] = useState(false);
+  const prenotazione = useSelector((state) => state.app.myReservation);
   const showReservationState = useSelector(
     (state) => state.show.showReservation
   );
@@ -27,6 +29,7 @@ const Sidebar = (props) => {
     setStateReservation(e);
     dispatch({ type: SHOW_RESERVATION, payload: stateReservation });
     dispatch({ type: SHOW_CREATE_RESERVATION, payload: !stateReservation });
+    dispatch({ type: REFRESH_RESERVATION, payload: true });
   };
   const clickShowCreateReservation = (e) => {
     setStateCreateReservation(e);
@@ -72,7 +75,7 @@ const Sidebar = (props) => {
             <BsBook />{" "}
           </span>
           Le mie prenotazioni{" "}
-          <Badge bg="secondary">{props.profilo.prenotazione.length}</Badge>
+          <Badge bg="secondary">{prenotazione.length}</Badge>
         </h6>
       </Row>
       <Row className="text-start border-bottom py-2 listSidebar">

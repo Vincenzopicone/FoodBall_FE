@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "./LoginRegister.css";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SAVE_MY_PROFILE } from "../../redux/action";
+import { useDispatch, useSelector } from "react-redux";
+import { SAVE_MY_PROFILE, REFRESH_RESERVATION } from "../../redux/action";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const Login = () => {
         const data = await response.json();
         setResponseLogin(data.roles[0].roleName);
         dispatch({ type: SAVE_MY_PROFILE, payload: data });
+        dispatch({ type: REFRESH_RESERVATION, payload: false });
         console.log(data);
         setInvioLogin(false);
         setErroreLogin(false);

@@ -2,48 +2,26 @@ import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
-import { SHOW_CARD_EVENT } from "../../redux/action";
 import CardEvento from "./CardEvento";
+import { SHOW_CARD_EVENT } from "../../redux/action";
 
 const CreaPrenotazione = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.app.myProfile.accessToken);
-
-  // stati per ricerca evento
-  const [eventState, setEventState] = useState();
   const [eventCity, setEventCity] = useState("Milano");
-  const [event, setEvent] = useState([]);
-  const showCardEventState = useSelector((state) => state.show.showCardEvent);
   const handleChangeEvent = (e) => {
     setEventCity(e);
   };
+  const showCardEventState = useSelector((state) => state.show.showCardEvent);
+  const [eventState, setEventState] = useState();
   const clickShowEvent = () => {
     setEventState(!eventState);
     dispatch({ type: SHOW_CARD_EVENT, payload: eventState });
   };
-  // fine stati per ricerca evento
-  const getEventByCity = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/eventi/citta/${eventCity}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setEvent(data);
-      }
-    } catch {}
-  };
 
-  useEffect(() => {
-    if (showCardEventState === true) {
-      getEventByCity();
-    }
-  }, [eventState]);
+  // stati per ricerca evento
+
+  // fine stati per ricerca evento
+
   return (
     <>
       <Row>
@@ -84,7 +62,9 @@ const CreaPrenotazione = () => {
           </Button>
         </Col>
       </Row>
-      <Row>{showCardEventState === true && <CardEvento evento={event} />}</Row>
+      <Row>
+        {showCardEventState === true && <CardEvento citta={eventCity} />}
+      </Row>
     </>
   );
 };

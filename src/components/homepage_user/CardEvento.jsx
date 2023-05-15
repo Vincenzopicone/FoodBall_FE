@@ -1,74 +1,94 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import { VscLocation } from "react-icons/vsc";
 import { BsCalendar3 } from "react-icons/bs";
 import moment from "moment";
 import "moment/locale/it";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SHOW_CARD_EVENT } from "../../redux/action";
 
 const CardEvento = (props) => {
-  const myProfile = useSelector((state) => state.app.myProfile);
-  const [utente, setUtente] = useState({
-    username: myProfile.username,
-  });
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.app.myProfile.accessToken);
-  const [today, setToday] = useState(moment().format("YYYY-MM-DD"));
-  const [postiSelezionati, setPostiSelezionati] = useState("");
-
+  const myProfile = useSelector((state) => state.app.myProfile);
+  const [eventState, setEventState] = useState();
+  const [utente, setUtente] = useState(myProfile.username);
+  const [event, setEvent] = useState([]);
+  const showCardEventState = useSelector((state) => state.show.showCardEvent);
+  const [postiSelezionati, setPostiSelezionati] = useState();
   const [invioReservation, setInvioReservation] = useState(false);
+  const [invioOK, setInvioOK] = useState(false);
+  const [invioNOT_OK, setInvioNOT_OK] = useState(false);
+  const [msg, setMsg] = useState("");
   moment.locale("it");
-  // setto numero max posti prenotabili
   const postiPrenotati = [];
   for (let i = 1; i < 16; i++) {
     postiPrenotati.push(i);
   }
-  const [reservation, setReservation] = useState({});
-  const [dataPartita, setDataPartita] = useState();
-
+  const [reservation, setReservation] = useState();
   const saveReservation = (e) => {
     setReservation(e);
-    setDataPartita(reservation.partita?.data);
     setInvioReservation(true);
-    console.log("evento", reservation);
-    console.log("utente", utente);
-    console.log("data", today);
-    console.log("dataevento", dataPartita);
-    console.log("postiselezionati", postiSelezionati);
   };
-
   const handleSelectChange = (e) => {
     setPostiSelezionati(e);
   };
-
   const postAddRservation = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/prenotazione/prenotaora",
+        "http://localhost:8080/api/prenotazione/crea",
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
             "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            idevento: reservation,
+            usernameutente: utente,
+            numeropersone: postiSelezionati,
+          }),
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setInvioReservation(false);
+        setInvioOK(true);
+        setInvioNOT_OK(false);
+      } else {
+        setInvioReservation(false);
+        setInvioNOT_OK(true);
+        setInvioOK(false);
+
+        setMsg(data.message);
+      }
+    } catch (error) {}
+  };
+
+  const getEventByCity = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/eventi/citta/${props.citta}`,
+        {
+          headers: {
             Authorization: `Bearer ${token}`,
-            body: JSON.stringify({
-              utente: utente,
-              evento: reservation,
-              // dataevento: dataPartita,
-              // dataprenotazione: today,
-              numeropersone: postiSelezionati,
-            }),
           },
         }
       );
-
       if (response.ok) {
         const data = await response.json();
-        setInvioReservation(false);
-      } else {
-        setInvioReservation(false);
+        setEvent(data);
       }
     } catch {}
   };
+
+  useEffect(() => {
+    if (showCardEventState === true) {
+      getEventByCity();
+    }
+  }, [eventState, invioOK]);
 
   useEffect(() => {
     if (invioReservation === true) {
@@ -79,11 +99,15 @@ const CardEvento = (props) => {
     <Container fluid>
       <Row className="py-2">
         <h6>
-          Ecco gli eventi a: <strong>{props.evento[0]?.citta}</strong>
+          Ecco gli eventi a: <strong>{event[0]?.citta}</strong>
         </h6>
       </Row>
-      {props.evento &&
-        props.evento.map((e, i) => (
+      {invioOK === true && (
+        <Alert variant={"success"}>Prenotazione effettuata</Alert>
+      )}
+      {invioNOT_OK === true && <Alert variant={"danger"}>{msg}</Alert>}
+      {event &&
+        event.map((e) => (
           <Row key={e.id} className="border border-tertiary mb-2 p-2 rounded">
             <Col xs={12}>
               <Row xs={12}>
@@ -118,10 +142,16 @@ const CardEvento = (props) => {
                 </strong>
               </Row>
               <Row className="d-flex align-item-baseline">
-                <Col xs={8} className="d-flex align-items-center">
+                <Col
+                  xs={8}
+                  className="d-flex align-items-center justify-content-end"
+                >
                   <div>Per quanti vuoi prenotare?</div>
                 </Col>
-                <Col xs={1}>
+                <Col
+                  xs={1}
+                  className="d-flex align-items-center justify-content-start"
+                >
                   <select onChange={(e) => handleSelectChange(e.target.value)}>
                     {postiPrenotati.map((e) => (
                       <option value={e}>{e}</option>
@@ -132,7 +162,7 @@ const CardEvento = (props) => {
                   <div className="d-flex align-item-center">
                     <Button
                       variant="success"
-                      onClick={() => saveReservation(e)}
+                      onClick={() => saveReservation(e.id)}
                     >
                       {" "}
                       Prenota

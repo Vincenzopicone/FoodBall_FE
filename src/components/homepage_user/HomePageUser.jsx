@@ -10,9 +10,10 @@ import { useState } from "react";
 const HomePageUser = () => {
   const [menu, setMenu] = useState(false);
   const myProfile = useSelector((state) => state.app.myProfile);
-  const myReservation = useSelector(
-    (state) => state.app.myProfile.prenotazione
-  );
+  console.log(myProfile);
+  // const myReservation = useSelector(
+  //   (state) => state.app.myProfile.prenotazione
+  // );
   const token = useSelector((state) => state.app.myProfile.accessToken);
   const showReservationState = useSelector(
     (state) => state.show.showReservation
@@ -46,9 +47,7 @@ const HomePageUser = () => {
 
         <Col xs={12} lg={8}>
           {showCreateReservationState === true && <CreaPrenotazione />}
-          {showReservationState === true && (
-            <CardPrenotazione prenotazione={myReservation} />
-          )}
+          {showReservationState === true && <CardPrenotazione />}
         </Col>
       </Row>
     </Container>

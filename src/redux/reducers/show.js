@@ -2,11 +2,13 @@ import {
   SHOW_RESERVATION,
   SHOW_CREATE_RESERVATION,
   SHOW_CARD_EVENT,
+  REFRESH_RESERVATION,
 } from "../action";
 const initialState = {
   showReservation: false,
   showCreateReservation: true,
   showCardEvent: false,
+  refreshReservation: false,
 };
 
 const showReducer = (state = initialState, action) => {
@@ -17,6 +19,8 @@ const showReducer = (state = initialState, action) => {
       return { ...state, showCreateReservation: action.payload };
     case SHOW_CARD_EVENT:
       return { ...state, showCardEvent: action.payload };
+    case REFRESH_RESERVATION:
+      return { ...state, refreshReservation: action.payload };
     default:
       return state;
   }
