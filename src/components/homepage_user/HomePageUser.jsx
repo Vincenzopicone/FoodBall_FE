@@ -6,21 +6,18 @@ import CardPrenotazione from "./CardPrenotazione";
 import CreaPrenotazione from "./CreaPrenotazione";
 import "./HomePageUser.css";
 import { useState } from "react";
+import PersonalPage from "./PersonalPage";
 
 const HomePageUser = () => {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(true);
   const myProfile = useSelector((state) => state.app.myProfile);
-  console.log(myProfile);
-  // const myReservation = useSelector(
-  //   (state) => state.app.myProfile.prenotazione
-  // );
-  const token = useSelector((state) => state.app.myProfile.accessToken);
   const showReservationState = useSelector(
     (state) => state.show.showReservation
   );
   const showCreateReservationState = useSelector(
     (state) => state.show.showCreateReservation
   );
+  const showPersonal = useSelector((state) => state.show.showPersonalPage);
   const clickShowMenu = () => {
     setMenu(!menu);
   };
@@ -47,6 +44,7 @@ const HomePageUser = () => {
 
         <Col xs={12} lg={8}>
           {showCreateReservationState === true && <CreaPrenotazione />}
+          {showPersonal === true && <PersonalPage />}
           {showReservationState === true && <CardPrenotazione />}
         </Col>
       </Row>

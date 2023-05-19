@@ -5,22 +5,23 @@ import moment from "moment";
 import "moment/locale/it";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SHOW_CARD_EVENT } from "../../redux/action";
 
 const CardEvento = (props) => {
   const dispatch = useDispatch();
+  const dateToStart = moment().format("YYYY-MM-DD");
   const token = useSelector((state) => state.app.myProfile.accessToken);
   const myProfile = useSelector((state) => state.app.myProfile);
   const [eventState, setEventState] = useState();
   const [utente, setUtente] = useState(myProfile.username);
   const [event, setEvent] = useState([]);
   const showCardEventState = useSelector((state) => state.show.showCardEvent);
-  const [postiSelezionati, setPostiSelezionati] = useState();
+  const [postiSelezionati, setPostiSelezionati] = useState(1);
   const [invioReservation, setInvioReservation] = useState(false);
   const [invioOK, setInvioOK] = useState(false);
   const [invioNOT_OK, setInvioNOT_OK] = useState(false);
   const [msg, setMsg] = useState("");
   moment.locale("it");
+  const [pageable, setPageable] = useState(0);
   const postiPrenotati = [];
   for (let i = 1; i < 16; i++) {
     postiPrenotati.push(i);
@@ -29,9 +30,18 @@ const CardEvento = (props) => {
   const saveReservation = (e) => {
     setReservation(e);
     setInvioReservation(true);
+    setEventState(true);
   };
   const handleSelectChange = (e) => {
     setPostiSelezionati(e);
+    setInvioNOT_OK(false);
+    setInvioOK(false);
+  };
+  const forwardButton = () => {
+    setPageable(pageable + 1);
+  };
+  const backButton = () => {
+    setPageable(pageable - 1);
   };
   const postAddRservation = async () => {
     try {
@@ -57,6 +67,8 @@ const CardEvento = (props) => {
         setInvioReservation(false);
         setInvioOK(true);
         setInvioNOT_OK(false);
+        setEventState(false);
+        setPostiSelezionati(1);
       } else {
         setInvioReservation(false);
         setInvioNOT_OK(true);
@@ -70,7 +82,7 @@ const CardEvento = (props) => {
   const getEventByCity = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/eventi/citta/${props.citta}`,
+        `http://localhost:8080/api/eventi/pageable/order/${props.citta}/data/${dateToStart}/page/${pageable}/size/8`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -79,7 +91,7 @@ const CardEvento = (props) => {
       );
       if (response.ok) {
         const data = await response.json();
-        setEvent(data);
+        setEvent(data.content);
       }
     } catch {}
   };
@@ -88,7 +100,7 @@ const CardEvento = (props) => {
     if (showCardEventState === true) {
       getEventByCity();
     }
-  }, [eventState, invioOK]);
+  }, [eventState, invioOK, pageable]);
 
   useEffect(() => {
     if (invioReservation === true) {
@@ -101,6 +113,18 @@ const CardEvento = (props) => {
         <h6>
           Ecco gli eventi a: <strong>{event[0]?.citta}</strong>
         </h6>
+      </Row>
+      <Row className="mb-3 d-flex justify-content-between">
+        <Col xs={5} md={3}>
+          <Button variant="primary" onClick={() => backButton()}>
+            INDIETRO
+          </Button>
+        </Col>
+        <Col xs={5} md={3}>
+          <Button variant="primary" onClick={() => forwardButton()}>
+            AVANTI
+          </Button>
+        </Col>
       </Row>
       {invioOK === true && (
         <Alert variant={"success"}>Prenotazione effettuata</Alert>
@@ -154,7 +178,9 @@ const CardEvento = (props) => {
                 >
                   <select onChange={(e) => handleSelectChange(e.target.value)}>
                     {postiPrenotati.map((e) => (
-                      <option value={e}>{e}</option>
+                      <option key={e.id} value={e}>
+                        {e}
+                      </option>
                     ))}
                   </select>
                 </Col>

@@ -9,35 +9,35 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   LOGOUT_MY_PROFILE,
   SHOW_RESERVATION,
-  SHOW_CREATE_RESERVATION,
-  REFRESH_RESERVATION,
   SHOW_PERSONALPAGE,
+  SHOW_CREATE_EVENT,
+  SHOW_EVENT_ADMIN,
 } from "../../redux/action";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { useState } from "react";
-
 const Sidebar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clickShowPersonalPage = () => {
     dispatch({ type: SHOW_PERSONALPAGE, payload: true });
-    dispatch({ type: SHOW_RESERVATION, payload: false });
-    dispatch({ type: SHOW_CREATE_RESERVATION, payload: false });
-    dispatch({ type: REFRESH_RESERVATION, payload: true });
+    dispatch({
+      type: SHOW_CREATE_EVENT,
+      payload: false,
+    });
+    dispatch({ type: SHOW_EVENT_ADMIN, payload: false });
   };
-  const clickShowReservation = () => {
-    dispatch({ type: SHOW_RESERVATION, payload: true });
-    dispatch({ type: SHOW_CREATE_RESERVATION, payload: false });
-    dispatch({ type: REFRESH_RESERVATION, payload: true });
+  const clickShowEvent = () => {
+    dispatch({ type: SHOW_EVENT_ADMIN, payload: true });
+    dispatch({ type: SHOW_CREATE_EVENT, payload: false });
     dispatch({ type: SHOW_PERSONALPAGE, payload: false });
   };
-  const clickShowCreateReservation = () => {
+  const clickShowCreateEvent = () => {
     dispatch({
-      type: SHOW_CREATE_RESERVATION,
+      type: SHOW_CREATE_EVENT,
       payload: true,
     });
-    dispatch({ type: SHOW_RESERVATION, payload: false });
+    dispatch({ type: SHOW_EVENT_ADMIN, payload: false });
     dispatch({ type: SHOW_PERSONALPAGE, payload: false });
   };
 
@@ -67,37 +67,29 @@ const Sidebar = (props) => {
           <span className="iconSectionProfile">
             <CgProfile />{" "}
           </span>
-          I miei dati personali
+          I dati del tuo locale
         </h6>
       </Row>
       <Row
         className="text-start border-bottom py-2 listSidebar"
-        onClick={() => clickShowCreateReservation(true)}
-      >
-        <h6 className="text-secondary me-3">
-          <span className="iconSectionProfile">
-            <GiSoccerBall />{" "}
-          </span>
-          Dove vuoi prenotare?
-        </h6>
-      </Row>
-      <Row
-        className="text-start border-bottom py-2 listSidebar"
-        onClick={() => clickShowReservation(true)}
+        onClick={() => clickShowEvent(true)}
       >
         <h6 className="text-secondary me-3">
           <span className="iconSectionProfile">
             <BsBook />{" "}
           </span>
-          Le mie prenotazioni{" "}
+          Prenotazioni ricevute{" "}
         </h6>
       </Row>
-      <Row className="text-start border-bottom py-2 listSidebar">
+      <Row
+        className="text-start border-bottom py-2 listSidebar"
+        onClick={() => clickShowCreateEvent(true)}
+      >
         <h6 className="text-secondary me-3">
           <span className="iconSectionProfile">
-            <MdRestaurantMenu />{" "}
+            <GiSoccerBall />{" "}
           </span>
-          I miei ristoranti preferiti
+          Crea il tuo evento
         </h6>
       </Row>
       <Row className="d-flex justify-content-center pt-3">

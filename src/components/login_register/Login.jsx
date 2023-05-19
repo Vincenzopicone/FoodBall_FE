@@ -41,7 +41,6 @@ const Login = () => {
         setResponseLogin(data.roles[0].roleName);
         dispatch({ type: SAVE_MY_PROFILE, payload: data });
         dispatch({ type: REFRESH_RESERVATION, payload: false });
-        console.log(data);
         setInvioLogin(false);
         setErroreLogin(false);
       } else {

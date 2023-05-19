@@ -17,15 +17,10 @@ const CreaPrenotazione = () => {
     setEventState(!eventState);
     dispatch({ type: SHOW_CARD_EVENT, payload: eventState });
   };
-
-  // stati per ricerca evento
-
-  // fine stati per ricerca evento
-
   return (
     <>
-      <Row>
-        <Col xs={12} md={8} lg={6}>
+      <Row className="text-center">
+        <Col xs={12}>
           <h2>Dove vuoi prenotare?</h2>
         </Col>
       </Row>
@@ -38,20 +33,6 @@ const CreaPrenotazione = () => {
             onChange={(e) => handleChangeEvent(e.target.value)}
           ></input>
         </Col>
-        {/* <Col md={3} lg={3} className="text-center">
-          <input
-            className="rounded p-1 mb-1"
-            type="text"
-            placeholder="Ricerca per locale"
-          ></input>
-        </Col>
-        <Col md={3} lg={3} className="text-center">
-          <input
-            className="rounded p-1 mb-2"
-            type="text"
-            placeholder="Ricerca per partita"
-          ></input>
-        </Col> */}
         <Col ms={3} lg={3} className="text-center">
           <Button variant={"secondary"} onClick={() => clickShowEvent()}>
             {" "}

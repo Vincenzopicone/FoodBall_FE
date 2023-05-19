@@ -1,1 +1,12 @@
-/*# sourceMappingURL=HomePageAdmin.css.map */
+.homePageUser {
+  min-height: 100vh;
+}
+
+.cardPrenotazione {
+  box-shadow: 4px 4px 4px 4px lightgray;
+}
+
+.sidebar {
+  border-right: 1px lightgray solid;
+  box-shadow: 4px 4px 4px 4px lightgray;
+}/*# sourceMappingURL=HomePageAdmin.css.map */

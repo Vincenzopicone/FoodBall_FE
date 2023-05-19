@@ -1,7 +1,17 @@
 .bodyLogin {
-  filter: blur(0px);
   width: 100%;
   height: 100vh;
+}
+
+.bodyRegister {
+  width: 100%;
+  height: 100vh;
+}
+
+.fieldRegister {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
 }
 
 .titleLogin {
@@ -97,7 +107,7 @@
 
 .login-box a:hover {
   background: #fff;
-  color: #272727;
+  color: #000000;
   border-radius: 5px;
 }
 
@@ -188,8 +198,8 @@
   text-decoration: none;
 }
 
-.login-box a.a2:hover {
+.login-box .a2:hover {
   background: transparent;
-  color: #aaa;
+  color: black;
   border-radius: 5px;
 }/*# sourceMappingURL=LoginRegister.css.map */

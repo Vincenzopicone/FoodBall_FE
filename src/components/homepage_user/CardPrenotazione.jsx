@@ -1,4 +1,4 @@
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Container, Row } from "react-bootstrap";
 import PlaceHolderRistorante from "../assets/PlaceHolderRistorante.png";
 import moment from "moment";
 import "moment/locale/it";
@@ -15,6 +15,8 @@ const CardPrenotazione = () => {
   const [utente, setUtente] = useState(myProfile.username);
   const [idDelete, setIdDelete] = useState();
   const [invioDelete, setInvioDelete] = useState(false);
+  const [deleteOK, setDeleteOK] = useState(false);
+  const [msg, setMsg] = useState("");
 
   // const [prenotazione, setPrenotazione] = useState();
   const refreshPersonalReservation = useSelector(
@@ -40,12 +42,9 @@ const CardPrenotazione = () => {
         }
       );
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        // setPrenotazione(data.prenotazioni);
         dispatch({ type: SAVE_MY_RESERVATION, payload: data.prenotazioni });
-
-        console.log(data);
       } else {
       }
     } catch (error) {}
@@ -63,9 +62,15 @@ const CardPrenotazione = () => {
           },
         }
       );
+
+      const data = response.json();
       if (response.ok) {
         setInvioDelete(false);
+        setDeleteOK(true);
       } else {
+        setDeleteOK(true);
+        const data = await response.json();
+        setMsg(data.message);
       }
     } catch {}
   };
@@ -73,17 +78,26 @@ const CardPrenotazione = () => {
     if (invioDelete === true) {
       deleteReservation();
     }
-  }, [invioDelete]);
+  }, [invioDelete, deleteOK]);
 
   useEffect(() => {
     getProfilo();
   }, [refreshPersonalReservation, invioDelete]);
   return (
     <>
-      <Row className="d-flex justify-content-center">
-        <Col xs={12} md={6} lg={6}>
+      <Row className="d-flex text-center justify-content-center">
+        <Col xs={12}>
           <h2>Le mie prenotazioni</h2>
         </Col>
+        {deleteOK === true && (
+          <Row className="justify-content-end">
+            <Col xs={12} md={8} lg={6}>
+              <Alert variant={"danger"}>
+                La prenotazione è stata cancellata con successo!
+              </Alert>
+            </Col>
+          </Row>
+        )}
       </Row>
       {prenotazione &&
         prenotazione.map((e) => (
