@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const CardEvent = () => {
   const token = useSelector((state) => state.app.myProfile.accessToken);
   const idLocale = useSelector((state) => state.app.myProfile.locale.id);
   const [locale, setLocale] = useState({});
   const [eventi, setEventi] = useState([]);
+  const [showPrenotazione, setShowPrenotazione] = useState();
+  const [show, setShow] = useState(false);
+
+  const clickShowReservation = (p) => {
+    setShowPrenotazione(p);
+    setShow(!show);
+  };
 
   const getEventi = async () => {
     try {
@@ -23,7 +31,6 @@ const CardEvent = () => {
       );
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
         setLocale(data);
         setEventi(data.evento);
       } else {
@@ -43,25 +50,29 @@ const CardEvent = () => {
         </Col>
       </Row>
 
-      <Row className="border border-tertiary rounded">
+      <Row className="border border-tertiary rounded text-center">
         {eventi &&
           eventi.map((e) => (
             <>
               <Row key={e.id} className="mt-3">
                 <Col xs={4}>EVENTO </Col>
-                <Col xs={3}>DATA EVENTO</Col>
-                <Col xs={3}>DISPONIBILI</Col>
+                <Col xs={2}>DATA EVENTO</Col>
+                <Col xs={2}>DISPONIBILI</Col>
+                <Col xs={2}>PRENOTAZIONI</Col>
                 <Col xs={2}></Col>
               </Row>
               <Row>
                 <Col xs={4}>
                   {e.partita.squadra1} vs {e.partita.squadra1}{" "}
                 </Col>
-                <Col xs={3}>{e.data}</Col>
-                <Col xs={3}>{e.postidisponibili}</Col>
+                <Col xs={2}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
+                <Col xs={2}>{e.postidisponibili}</Col>
+                <Col xs={2}>{e.prenotazione.length}</Col>
                 <Col xs={2}>
                   {" "}
-                  <Button>Prenotazioni {e.prenotazione.length}</Button>
+                  <Button onClick={() => clickShowReservation(e.id)}>
+                    Dettaglio
+                  </Button>
                 </Col>
               </Row>
               <Row>
@@ -70,14 +81,19 @@ const CardEvent = () => {
                 <Col xs={4}>Nome</Col>
                 <Col xs={2}>Persone</Col>
               </Row>
-              {e.prenotazione &&
+
+              {showPrenotazione === e.id &&
+                // show === true &&
+                e.prenotazione &&
                 e.prenotazione.map((p, i) => (
-                  <Row key={p.id}>
-                    <Col xs={1}>{i + 1}</Col>
-                    <Col xs={2}>{p.dataprenotazione}</Col>
-                    <Col xs={4}>{p.utente.name}</Col>
-                    <Col xs={2}>{p.numeropersone}</Col>
-                  </Row>
+                  <>
+                    <Row key={p.id}>
+                      <Col xs={1}>{i + 1}</Col>
+                      <Col xs={2}>{p.dataprenotazione}</Col>
+                      <Col xs={4}>{p.utente.name}</Col>
+                      <Col xs={2}>{p.numeropersone}</Col>
+                    </Row>
+                  </>
                 ))}
             </>
           ))}

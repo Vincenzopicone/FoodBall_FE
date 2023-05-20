@@ -93,11 +93,6 @@ const PersonalPage = () => {
 
   return (
     <>
-      <Row className="text-center">
-        <Col xs={12}>
-          <h2>I miei dati personali</h2>
-        </Col>
-      </Row>
       <Row>
         {invioOK === true && (
           <Alert variant={"success"}>Modifica effettuata.</Alert>
@@ -109,7 +104,10 @@ const PersonalPage = () => {
           </Alert>
         )}
       </Row>
-      <Row className="border border-tertiary rounded p-3 justify-content-center">
+      <Row className="border border-tertiary rounded p-3 justify-content-center bg-light">
+        <Col xs={12} className="text-center">
+          <h2>I miei dati personali</h2>
+        </Col>
         <Col
           xs={12}
           lg={4}

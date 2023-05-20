@@ -1,4 +1,6 @@
 .bodyLogin {
+  background-image: url("../assets/Football_pitch.png");
+  background-size: cover;
   width: 100%;
   height: 100vh;
 }
@@ -6,6 +8,8 @@
 .bodyRegister {
   width: 100%;
   height: 100vh;
+  background-image: url("../assets/Football_pitch.png");
+  background-size: cover;
 }
 
 .fieldRegister {

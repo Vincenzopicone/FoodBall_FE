@@ -5,6 +5,10 @@
   height: 100%;
 }
 
+.listSidebar {
+  background: white;
+}
+
 .listSidebar:hover {
   cursor: pointer;
   background-color: lightgray;

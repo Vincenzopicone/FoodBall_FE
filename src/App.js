@@ -7,7 +7,7 @@ import Footer from "./components/footer/Footer.jsx";
 import HomePageUser from "./components/homepage_user/HomePageUser.jsx";
 import HomePageLocale from "./components/homepage_admin/HomePageAdmin.jsx";
 import Registrati from "./components/login_register/Register.jsx";
-import Sidebar from "./components/sidebar/Sidebar.jsx";
+import Welcome from "./components/welcome_page/WelcomePage.jsx";
 
 function App() {
   return (
@@ -15,10 +15,11 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registrati />} />
           <Route path="/homepageuser" element={<HomePageUser />} />
           <Route path="/homepageadmin" element={<HomePageLocale />} />
-          <Route path="/register" element={<Registrati />} />
         </Routes>
         <Footer />
       </BrowserRouter>

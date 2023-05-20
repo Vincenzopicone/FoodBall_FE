@@ -19,21 +19,22 @@ const CreaPrenotazione = () => {
   };
   return (
     <>
-      <Row className="text-center">
+      {/* <Row className="text-center ">
         <Col xs={12}>
           <h2>Dove vuoi prenotare?</h2>
         </Col>
-      </Row>
-      <Row className="border border-secondary rounded justify-content-around py-3">
-        <Col md={3} lg={3} className="text-center">
+      </Row> */}
+      <Row className="border border-secondary rounded justify-content-start p-3 searchSection">
+        <Col md={3} lg={3} className="text-start d-flex flex-column">
+          <h5 className="fw-bold">Prenota un tavolo</h5>
           <input
             className="rounded p-1 mb-1"
             type="text"
             placeholder="Ricerca per città"
             onChange={(e) => handleChangeEvent(e.target.value)}
           ></input>
-        </Col>
-        <Col ms={3} lg={3} className="text-center">
+          {/* </Col>
+        <Col ms={3} lg={3} className="text-center"> */}
           <Button variant={"secondary"} onClick={() => clickShowEvent()}>
             {" "}
             <span>
@@ -42,6 +43,7 @@ const CreaPrenotazione = () => {
             Cerca
           </Button>
         </Col>
+        <Col xs={2}></Col>
       </Row>
       <Row>
         {showCardEventState === true && <CardEvento citta={eventCity} />}

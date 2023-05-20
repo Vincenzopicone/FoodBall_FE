@@ -130,164 +130,168 @@ const Register = () => {
 
   return (
     <>
-      {/* <div className="bodyLogin"></div> */}
-      <Container className="d-flex flex-column justify-content-center py-5 bodyRegister">
-        <div className="d-flex flex-column justify-content-center align-items-center border border-tertiary rounded fieldRegister py-3">
-          <Row>
-            <h2>Registrati a FoodBall</h2>
-          </Row>
-          <Row className="mb-2">
-            <Col className="d-flex justify-content-center align-content-center">
-              <div>
-                <select
-                  className="p-1 rounded"
-                  onChange={(e) => handleSelect(e.target.value)}
-                >
-                  <option selected>Utente o ristoratore?</option>
-                  <option value={"ROLE_USER"}>UTENTE</option>
-                  <option value={"ROLE_ADMIN"}> RISTORATORE </option>
-                </select>
-              </div>
-            </Col>
-            <Col className="d-flex justify-content-center align-content-center">
-              <div>
-                {roleSelect === "ROLE_ADMIN" && (
+      <div className="bodyRegister">
+        <Container className="d-flex flex-column justify-content-center py-5 bodyRegister">
+          <div className="d-flex flex-column justify-content-center align-items-center rounded fieldRegister py-3">
+            <Row>
+              <h2>Registrati a FoodBall</h2>
+            </Row>
+            <Row className="mb-2">
+              <Col className="d-flex justify-content-center align-content-center mt-4">
+                <div>
                   <select
                     className="p-1 rounded"
-                    onChange={(e) => handleSelectLocale(e.target.value)}
+                    onChange={(e) => handleSelect(e.target.value)}
                   >
-                    <option selected>Che tipo di locale è?</option>
-                    <option value={"RISTORANTE"}>RISTORANTE</option>
-                    <option value={"PIZZERIA"}>PIZZERIA</option>
-                    <option value={"PUB"}>PUB</option>
-                    <option value={"BURGER"}>BURGER</option>
+                    <option selected>Utente o ristoratore?</option>
+                    <option value={"ROLE_USER"}>UTENTE</option>
+                    <option value={"ROLE_ADMIN"}> RISTORATORE </option>
                   </select>
+                </div>
+              </Col>
+              <Col className="d-flex justify-content-center align-content-center mt-4">
+                <div>
+                  {roleSelect === "ROLE_ADMIN" && (
+                    <select
+                      className="p-1 rounded"
+                      onChange={(e) => handleSelectLocale(e.target.value)}
+                    >
+                      <option selected>Che tipo di locale è?</option>
+                      <option value={"RISTORANTE"}>RISTORANTE</option>
+                      <option value={"PIZZERIA"}>PIZZERIA</option>
+                      <option value={"PUB"}>PUB</option>
+                      <option value={"BURGER"}>BURGER</option>
+                    </select>
+                  )}
+                </div>
+              </Col>
+              <Col className="d-flex justify-content-center align-content-center">
+                {roleSelect === "ROLE_USER" && (
+                  <div className="user-box">
+                    <div>Nome e Cognome</div>
+                    <input
+                      className="rounded p-1"
+                      type="text"
+                      onChange={(e) => setNome(e.target.value)}
+                    />
+                  </div>
                 )}
-              </div>
-            </Col>
-            <Col className="d-flex justify-content-center align-content-center">
-              {roleSelect === "ROLE_USER" && (
-                <div className="user-box">
-                  <div>Nome e Cognome</div>
+                {roleSelect === "ROLE_ADMIN" && (
+                  <div className="user-box">
+                    <div>Nome Ristorante</div>
+                    <input
+                      className="rounded p-1"
+                      type="text"
+                      onChange={(e) => setNome(e.target.value)}
+                    />
+                  </div>
+                )}
+              </Col>
+            </Row>
+            <Row className="mb-2">
+              <Col className="d-flex justify-content-center align-content-center">
+                {" "}
+                <div class="user-box">
+                  <div>Username</div>
                   <input
                     className="rounded p-1"
                     type="text"
-                    onChange={(e) => setNome(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
-              )}
-              {roleSelect === "ROLE_ADMIN" && (
-                <div className="user-box">
-                  <div>Nome Ristorante</div>
+              </Col>
+              <Col className="d-flex justify-content-center align-content-center">
+                <div class="user-box">
+                  <div>Email</div>
+                  <input
+                    className="rounded p-1"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </Col>
+              <Col className="d-flex justify-content-center align-content-center">
+                <div class="user-box">
+                  <div>Password</div>
+                  <input
+                    className="rounded p-1"
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </Col>
+            </Row>
+            <Row className="mb-2">
+              <Col className="d-flex justify-content-center align-content-center">
+                <div class="user-box mt-3">
+                  <div>Indirizzo</div>
                   <input
                     className="rounded p-1"
                     type="text"
-                    onChange={(e) => setNome(e.target.value)}
+                    onChange={(e) => setIndirizzo(e.target.value)}
                   />
                 </div>
-              )}
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="d-flex justify-content-center align-content-center">
-              {" "}
-              <div class="user-box">
-                <div>Username</div>
-                <input
-                  className="rounded p-1"
-                  type="text"
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-            </Col>
-            <Col className="d-flex justify-content-center align-content-center">
-              <div class="user-box">
-                <div>Email</div>
-                <input
-                  className="rounded p-1"
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </Col>
-            <Col className="d-flex justify-content-center align-content-center">
-              <div class="user-box">
-                <div>Password</div>
-                <input
-                  className="rounded p-1"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="d-flex justify-content-center align-content-center">
-              <div class="user-box mt-3">
-                <div>Indirizzo</div>
-                <input
-                  className="rounded p-1"
-                  type="text"
-                  onChange={(e) => setIndirizzo(e.target.value)}
-                />
-              </div>
-            </Col>
-            <Col className="d-flex justify-content-center align-content-center">
-              <div class="user-box mt-3">
-                <div>Città</div>
-                <input
-                  className="rounded p-1"
-                  type="text"
-                  onChange={(e) => setCitta(e.target.value)}
-                />
-              </div>
-            </Col>
-            <Col className="d-flex justify-content-center align-content-center">
-              <div class="user-box mt-3">
-                <div>Telefono</div>
-                <input
-                  className="rounded p-1"
-                  type="text"
-                  onChange={(e) => setTelefono(e.target.value)}
-                />
-              </div>
-            </Col>
-          </Row>
-          <Row className="py-2">
-            <Col
-              xs={12}
-              className="d-flex justify-content-center align-content-center mb-3"
-            >
-              {roleSelect === "ROLE_USER" && (
-                <Button variant="outline-light" onClick={() => sendRegister()}>
-                  REGISTRATI
-                </Button>
-              )}
-              {roleSelect === "ROLE_ADMIN" && (
-                <Button
-                  variant="outline-light"
-                  onClick={() => sendRegisterAdmin()}
-                >
-                  REGISTRATI
-                </Button>
-              )}
-            </Col>
-
-            <Col
-              xs={12}
-              className="d-flex justify-content-center align-content-center text-secondary"
-            >
-              Sei registrato?{" "}
-              <Link
-                to={"/"}
-                class="ms-2 fw-bold text-decoration-none text-light"
+              </Col>
+              <Col className="d-flex justify-content-center align-content-center">
+                <div class="user-box mt-3">
+                  <div>Città</div>
+                  <input
+                    className="rounded p-1"
+                    type="text"
+                    onChange={(e) => setCitta(e.target.value)}
+                  />
+                </div>
+              </Col>
+              <Col className="d-flex justify-content-center align-content-center">
+                <div class="user-box mt-3">
+                  <div>Telefono</div>
+                  <input
+                    className="rounded p-1"
+                    type="text"
+                    onChange={(e) => setTelefono(e.target.value)}
+                  />
+                </div>
+              </Col>
+            </Row>
+            <Row className="py-2">
+              <Col
+                xs={12}
+                className="d-flex justify-content-center align-content-center mb-3"
               >
-                Torna al login
-              </Link>
-            </Col>
-          </Row>
-        </div>
-      </Container>
+                {roleSelect === "ROLE_USER" && (
+                  <Button
+                    variant="outline-light"
+                    onClick={() => sendRegister()}
+                  >
+                    REGISTRATI
+                  </Button>
+                )}
+                {roleSelect === "ROLE_ADMIN" && (
+                  <Button
+                    variant="outline-light"
+                    onClick={() => sendRegisterAdmin()}
+                  >
+                    REGISTRATI
+                  </Button>
+                )}
+              </Col>
+
+              <Col
+                xs={12}
+                className="d-flex justify-content-center align-content-center text-secondary"
+              >
+                Sei registrato?{" "}
+                <Link
+                  to={"/login"}
+                  class="ms-2 fw-bold text-decoration-none text-light"
+                >
+                  Torna al login
+                </Link>
+              </Col>
+            </Row>
+          </div>
+        </Container>
+      </div>
     </>
   );
 };

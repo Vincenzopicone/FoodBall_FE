@@ -16,6 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { useState } from "react";
+
 const Sidebar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const Sidebar = (props) => {
           <span className="iconSectionProfile">
             <BsBook />{" "}
           </span>
-          Prenotazioni ricevute{" "}
+          I nostri eventi{" "}
         </h6>
       </Row>
       <Row

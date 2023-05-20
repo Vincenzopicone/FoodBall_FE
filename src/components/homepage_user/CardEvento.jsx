@@ -82,7 +82,7 @@ const CardEvento = (props) => {
   const getEventByCity = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/eventi/pageable/order/${props.citta}/data/${dateToStart}/page/${pageable}/size/8`,
+        `http://localhost:8080/api/eventi/pageable/order/${props.citta}/data/${dateToStart}/page/${pageable}/size/9`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,19 +109,19 @@ const CardEvento = (props) => {
   }, [invioReservation]);
   return (
     <Container fluid>
-      <Row className="py-2">
-        <h6>
-          Ecco gli eventi a: <strong>{event[0]?.citta}</strong>
-        </h6>
-      </Row>
-      <Row className="mb-3 d-flex justify-content-between">
-        <Col xs={5} md={3}>
-          <Button variant="primary" onClick={() => backButton()}>
+      <Row className="py-2 justify-content-center align-items-baseline bg-light rounded py-2 mt-2">
+        <Col xs={4} md={4}>
+          <h6>
+            Ecco gli eventi a: <strong>{event[0]?.citta}</strong>
+          </h6>
+        </Col>
+        <Col xs={4} md={2}>
+          <Button variant="outline-secondary" onClick={() => backButton()}>
             INDIETRO
           </Button>
         </Col>
-        <Col xs={5} md={3}>
-          <Button variant="primary" onClick={() => forwardButton()}>
+        <Col xs={4} md={2}>
+          <Button variant="outline-secondary" onClick={() => forwardButton()}>
             AVANTI
           </Button>
         </Col>
@@ -130,75 +130,80 @@ const CardEvento = (props) => {
         <Alert variant={"success"}>Prenotazione effettuata</Alert>
       )}
       {invioNOT_OK === true && <Alert variant={"danger"}>{msg}</Alert>}
-      {event &&
-        event.map((e) => (
-          <Row key={e.id} className="border border-tertiary mb-2 p-2 rounded">
-            <Col xs={12}>
-              <Row xs={12}>
-                <Col>
-                  <span className="me-2">
-                    <BsCalendar3 />
-                  </span>
-                  <strong>{moment(e.data).format("DD-MMM-YYYY")}</strong>
-                </Col>
-                <Col>Posti Disponibili: {e.postidisponibili}</Col>
-              </Row>
-            </Col>
-            <Col xs={12}>
-              <Row>
-                <Col xs={12}>
-                  <Row>
-                    <div className="fst-italic">
-                      <span className="fw-bold text-uppercase">
-                        {e.locale?.nomelocale}
-                      </span>{" "}
-                      <span>
-                        <VscLocation />
-                      </span>{" "}
-                      {e.citta}, {e.locale?.indirizzo}
-                    </div>
-                  </Row>
-                </Col>
-              </Row>
-              <Row>
-                <strong>
-                  {e.partita?.squadra1} vs {e.partita?.squadra2}
-                </strong>
-              </Row>
-              <Row className="d-flex align-item-baseline">
-                <Col
-                  xs={8}
-                  className="d-flex align-items-center justify-content-end"
-                >
-                  <div>Per quanti vuoi prenotare?</div>
-                </Col>
-                <Col
-                  xs={1}
-                  className="d-flex align-items-center justify-content-start"
-                >
-                  <select onChange={(e) => handleSelectChange(e.target.value)}>
-                    {postiPrenotati.map((e) => (
-                      <option key={e.id} value={e}>
-                        {e}
-                      </option>
-                    ))}
-                  </select>
-                </Col>
-                <Col xs={3}>
-                  <div className="d-flex align-item-center">
-                    <Button
-                      variant="success"
-                      onClick={() => saveReservation(e.id)}
-                    >
-                      {" "}
-                      Prenota
-                    </Button>
+      <Row className="d-flex justify-content-around bg-light rounded py-3 my-2">
+        {event &&
+          event.map((e) => (
+            <>
+              {/* <Row key={e.id} className="border border-tertiary mb-2 p-2 rounded"> */}
+              <Col
+                xs={11}
+                md={5}
+                className="border border-secondary rounded m-1 p-2 cardEvento"
+              >
+                <Row xs={12} className="py-1">
+                  <Col xs={6} className="fst-italic">
+                    {" "}
+                    {e.locale.tipolocale}
+                  </Col>
+                  <Col xs={6} className="text-end">
+                    <span className="me-2">
+                      <BsCalendar3 />
+                    </span>
+                    <strong>{moment(e.data).format("DD-MMM-YYYY")}</strong>
+                  </Col>
+                </Row>
+                <Row className="text-center">
+                  <div className="fst-italic">
+                    <span className="fw-bold text-uppercase">
+                      {e.locale?.nomelocale}
+                    </span>{" "}
                   </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        ))}
+                  <div>
+                    <span>
+                      <VscLocation />
+                    </span>{" "}
+                    {e.citta}, {e.locale?.indirizzo}
+                  </div>
+                </Row>
+                <Row className="text-center py-2">
+                  <strong>
+                    {e.partita?.squadra1} vs {e.partita?.squadra2}
+                  </strong>
+                </Row>
+                <Row className="text-center">
+                  <div> Posti Disponibili: {e.postidisponibili}</div>
+                  <div>Per quanti vuoi prenotare?</div>
+                </Row>
+                <Row className="py-2 d-flex justify-content-center">
+                  <Col xs={5} className="d-flex justify-content-center">
+                    <select
+                      className="rounded p-1"
+                      onChange={(e) => handleSelectChange(e.target.value)}
+                    >
+                      {postiPrenotati.map((e) => (
+                        <option key={e.id} value={e}>
+                          {e}
+                        </option>
+                      ))}
+                    </select>
+                  </Col>
+                  <Col xs={5}>
+                    <div className="d-flex align-items-center">
+                      <Button
+                        variant="success"
+                        onClick={() => saveReservation(e.id)}
+                      >
+                        {" "}
+                        Prenota
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+            </>
+            // </Row>
+          ))}
+      </Row>
     </Container>
   );
 };

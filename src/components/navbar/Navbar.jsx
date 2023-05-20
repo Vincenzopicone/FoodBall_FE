@@ -7,7 +7,7 @@ import "./Navbar.css";
 const NavBar = () => {
   return (
     <nav className="navBar py-3 px-3 bg-dark">
-      <div className=" d-flex justify-content-start">
+      <div className=" d-flex justify-content-center ">
         <h1 className="titleNav">
           <span className="text-success">F</span>
           <span>o</span>

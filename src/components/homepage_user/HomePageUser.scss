@@ -1,10 +1,27 @@
 .homePageUser {
   min-height: 100vh;
+  background-image: url("../assets/Football_pitch.png");
+  background-size: cover;
 }
 .cardPrenotazione {
   box-shadow: 4px 4px 4px 4px lightgray;
 }
+
 .sidebar {
   border-right: 1px lightgray solid;
   box-shadow: 4px 4px 4px 4px lightgray;
+}
+
+.searchSection {
+  background: beige;
+  // background-image: url("../assets/BannerCerca.jpg");
+  background-size: cover;
+  height: 23vh;
+}
+.cardEvento {
+  box-shadow: 4px 4px 4px 4px lightgray;
+}
+.cardEvento:hover {
+  transform: scale(1.02);
+  background-color: antiquewhite;
 }
