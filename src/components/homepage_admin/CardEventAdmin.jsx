@@ -50,51 +50,65 @@ const CardEvent = () => {
         </Col>
       </Row>
 
-      <Row className="border border-tertiary rounded text-center">
+      <Row className=" text-center py-3">
         {eventi &&
           eventi.map((e) => (
             <>
-              <Row key={e.id} className="mt-3">
-                <Col xs={4}>EVENTO </Col>
-                <Col xs={2}>DATA EVENTO</Col>
-                <Col xs={2}>DISPONIBILI</Col>
-                <Col xs={2}>PRENOTAZIONI</Col>
-                <Col xs={2}></Col>
-              </Row>
-              <Row>
-                <Col xs={4}>
-                  {e.partita.squadra1} vs {e.partita.squadra1}{" "}
-                </Col>
-                <Col xs={2}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
-                <Col xs={2}>{e.postidisponibili}</Col>
-                <Col xs={2}>{e.prenotazione.length}</Col>
-                <Col xs={2}>
-                  {" "}
-                  <Button onClick={() => clickShowReservation(e.id)}>
-                    Dettaglio
-                  </Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={1}>N°</Col>
-                <Col xs={2}>Data</Col>
-                <Col xs={4}>Nome</Col>
-                <Col xs={2}>Persone</Col>
-              </Row>
-
-              {showPrenotazione === e.id &&
-                // show === true &&
-                e.prenotazione &&
-                e.prenotazione.map((p, i) => (
-                  <>
-                    <Row key={p.id}>
-                      <Col xs={1}>{i + 1}</Col>
-                      <Col xs={2}>{p.dataprenotazione}</Col>
-                      <Col xs={4}>{p.utente.name}</Col>
-                      <Col xs={2}>{p.numeropersone}</Col>
+              <Col xs={12} className="border border-secondary rounded mb-3">
+                <Row key={e.id} className="align-items-center ">
+                  <Col xs={10}>
+                    <Row>
+                      <Col xs={4}>EVENTO </Col>
+                      <Col xs={4}>DATA EVENTO</Col>
+                      <Col xs={2}>DISPONIBILI</Col>
+                      <Col xs={2}>PRENOTAZIONI</Col>
                     </Row>
-                  </>
-                ))}
+                    <Row>
+                      <Col xs={4}>
+                        {e.partita.squadra1} vs {e.partita.squadra1}{" "}
+                      </Col>
+                      <Col xs={4}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
+                      <Col xs={2}>{e.postidisponibili}</Col>
+                      <Col xs={2}>{e.prenotazione.length}</Col>
+                    </Row>
+                  </Col>
+                  <Col xs={2}>
+                    {" "}
+                    <Button onClick={() => clickShowReservation(e.id)}>
+                      Dettaglio
+                    </Button>
+                  </Col>
+                </Row>
+                <div className="listReservation rounded border border-secondary">
+                  <Row>
+                    {showPrenotazione === e.id && show === true && (
+                      <>
+                        <Col xs={1}>N°</Col>
+                        <Col xs={3}>Data</Col>
+                        <Col xs={5}>Nome</Col>
+                        <Col xs={3}>Persone</Col>
+                      </>
+                    )}
+                  </Row>
+                  <Row>
+                    {showPrenotazione === e.id &&
+                      show === true &&
+                      e.prenotazione &&
+                      e.prenotazione.map((p, i) => (
+                        <>
+                          <Col key={p.id} xs={1}>
+                            {i + 1}
+                          </Col>
+                          <Col xs={3}>
+                            {moment(p.dataprenotazione).format("DD-MMM-YYYY")}
+                          </Col>
+                          <Col xs={5}>{p.utente.name}</Col>
+                          <Col xs={3}>{p.numeropersone}</Col>
+                        </>
+                      ))}
+                  </Row>
+                </div>
+              </Col>
             </>
           ))}
       </Row>

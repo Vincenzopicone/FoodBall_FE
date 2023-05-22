@@ -104,7 +104,7 @@ const PersonalPage = () => {
           </Alert>
         )}
       </Row>
-      <Row className="border border-tertiary rounded p-3 justify-content-center bg-light">
+      <Row className="border border-secondary rounded p-3 justify-content-center bg-light ">
         <Col xs={12} className="text-center">
           <h2>I miei dati personali</h2>
         </Col>

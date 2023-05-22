@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { TiThMenu } from "react-icons/ti";
 import SidebarAdmin from "../sidebar/SidebarAdmin";
@@ -21,7 +21,7 @@ const HomePageAdmin = () => {
   };
 
   return (
-    <Container fluid className="homePageUser ">
+    <Container fluid className="homePageAdmin ">
       <Row className="d-flex justify-content-center justify-content-lg-start py-2">
         <Col className="d-flex justify-content-center" xs={9} lg={3}>
           <Button variant={"outline-secondary"} onClick={() => clickShowMenu()}>

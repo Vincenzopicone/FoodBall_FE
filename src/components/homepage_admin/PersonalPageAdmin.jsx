@@ -14,11 +14,7 @@ const PersonalPage = () => {
   const [indirizzo, setIndirizzo] = useState();
   const [citta, setCitta] = useState();
   const [telefono, setTelefono] = useState();
-  const [tipolocale, setTipoLocale] = useState();
 
-  const handleSelect = (e) => {
-    setTipoLocale(e);
-  };
   const clickModifyProfile = () => {
     setInvioModifica(true);
   };
@@ -85,34 +81,6 @@ const PersonalPage = () => {
       }
     } catch (error) {}
   };
-
-  // const creaLocale = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:8080/api/auth/locale/crea`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           Accept: "application/json",
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           username: profilo.username,
-  //           nomelocale: name,
-  //           indirizzolocale: indirizzo,
-  //           citta: citta,
-  //           tipolocale: tipolocale,
-  //         }),
-  //       }
-  //     );
-  //     if (response.ok) {
-  //     } else {
-  //     }
-  //   } catch {}
-  // };
-
-  // useEffect(() => {}, []);
 
   useEffect(() => {
     getProfilo();
@@ -214,19 +182,6 @@ const PersonalPage = () => {
             placeholder="Numero di telefono"
           ></input>
         </Col>
-        {/* <Col
-          xs={12}
-          lg={4}
-          className="d-flex flex-column justify-content-center align-items-center mb-3"
-        >
-          <div>Che locale è?</div>
-          <select onChange={(e) => handleSelect(e.target.value)}>
-            <option value={"RISTORANTE"}>RISTORANTE</option>
-            <option value={"PIZZERIA"}>PIZZERIA</option>
-            <option value={"PUB"}>PUB</option>
-            <option value={"BURGER"}>BURGER</option>
-          </select>
-        </Col> */}
         <Col
           xs={12}
           lg={4}

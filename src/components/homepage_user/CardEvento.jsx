@@ -109,7 +109,7 @@ const CardEvento = (props) => {
   }, [invioReservation]);
   return (
     <Container fluid>
-      <Row className="py-2 justify-content-center align-items-baseline bg-light rounded py-2 mt-2">
+      <Row className="py-2 border border-secondary justify-content-center align-items-baseline bg-light rounded py-2 mt-2">
         <Col xs={4} md={4}>
           <h6>
             Ecco gli eventi a: <strong>{event[0]?.citta}</strong>
@@ -126,11 +126,16 @@ const CardEvento = (props) => {
           </Button>
         </Col>
       </Row>
-      {invioOK === true && (
-        <Alert variant={"success"}>Prenotazione effettuata</Alert>
-      )}
-      {invioNOT_OK === true && <Alert variant={"danger"}>{msg}</Alert>}
-      <Row className="d-flex justify-content-around bg-light rounded py-3 my-2">
+      <Row className="justify-content-center my-2">
+        <Col xs={12} md={8} lg={6}>
+          {invioOK === true && (
+            <Alert variant={"success"}>Prenotazione effettuata</Alert>
+          )}
+          {invioNOT_OK === true && <Alert variant={"danger"}>{msg}</Alert>}
+        </Col>
+      </Row>
+
+      <Row className="d-flex border border-secondary justify-content-around bg-light rounded py-3 my-2">
         {event &&
           event.map((e) => (
             <>
