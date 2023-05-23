@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
@@ -9,11 +9,23 @@ const CardEvent = () => {
   const [locale, setLocale] = useState({});
   const [eventi, setEventi] = useState([]);
   const [showPrenotazione, setShowPrenotazione] = useState();
+  const [deleteIdEvent, setDeleteIdEvent] = useState();
   const [show, setShow] = useState(false);
+  const [showListReservation, setShowListReservation] = useState(false);
+  const [invioDelete, setInvioDelete] = useState(false);
+  const [deleteOK, setDeleteOK] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const clickShowReservation = (p) => {
     setShowPrenotazione(p);
-    setShow(!show);
+    setShowListReservation(!showListReservation);
+  };
+  const handleClickDelete = (p) => {
+    setDeleteIdEvent(p);
+    setInvioDelete(true);
+    handleClose();
   };
 
   const getEventi = async () => {
@@ -37,10 +49,39 @@ const CardEvent = () => {
       }
     } catch {}
   };
+  const deleteEvent = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/eventi/rimuovi/${deleteIdEvent}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        setInvioDelete(false);
+        setDeleteOK(true);
+      } else {
+        setInvioDelete(false);
+      }
+    } catch {}
+  };
 
   useEffect(() => {
     getEventi();
-  }, []);
+  }, [invioDelete, deleteOK]);
+
+  useEffect(() => {
+    if (invioDelete === true) {
+      deleteEvent();
+    }
+  }, [invioDelete, deleteOK]);
 
   return (
     <Container>
@@ -51,24 +92,33 @@ const CardEvent = () => {
       </Row>
 
       <Row className=" text-center py-3">
+        {deleteOK === true && (
+          <Row className="justify-content-center my-2 text-center">
+            <Col xs={12} md={8} lg={5}>
+              <Alert variant={"success"}>
+                L'evento è stato cancellata con successo!
+              </Alert>
+            </Col>
+          </Row>
+        )}
         {eventi &&
           eventi.map((e) => (
             <>
               <Col xs={12} className="border border-secondary rounded mb-3">
                 <Row key={e.id} className="align-items-center ">
-                  <Col xs={10}>
+                  <Col xs={8}>
                     <Row>
                       <Col xs={4}>EVENTO </Col>
-                      <Col xs={4}>DATA EVENTO</Col>
-                      <Col xs={2}>DISPONIBILI</Col>
+                      <Col xs={3}>DATA EVENTO</Col>
+                      <Col xs={3}>DISPONIBILI</Col>
                       <Col xs={2}>PRENOTAZIONI</Col>
                     </Row>
                     <Row>
                       <Col xs={4}>
                         {e.partita.squadra1} vs {e.partita.squadra1}{" "}
                       </Col>
-                      <Col xs={4}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
-                      <Col xs={2}>{e.postidisponibili}</Col>
+                      <Col xs={3}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
+                      <Col xs={3}>{e.postidisponibili}</Col>
                       <Col xs={2}>{e.prenotazione.length}</Col>
                     </Row>
                   </Col>
@@ -78,21 +128,51 @@ const CardEvent = () => {
                       Dettaglio
                     </Button>
                   </Col>
+                  <Col xs={2}>
+                    {" "}
+                    <Button variant="danger" onClick={handleShow}>
+                      Cancella
+                    </Button>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Cancella prenotazione</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Sei sicuro di voler cancellare questo evento?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="secondary rounded-pill"
+                          onClick={handleClose}
+                        >
+                          Torna indietro
+                        </Button>
+                        <Button
+                          className="rounded-pill"
+                          variant={"danger"}
+                          onClick={() => handleClickDelete(e.id)}
+                        >
+                          Cancella
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </Col>
                 </Row>
                 <div className="listReservation rounded border border-secondary">
                   <Row>
-                    {showPrenotazione === e.id && show === true && (
-                      <>
-                        <Col xs={1}>N°</Col>
-                        <Col xs={3}>Data</Col>
-                        <Col xs={5}>Nome</Col>
-                        <Col xs={3}>Persone</Col>
-                      </>
-                    )}
+                    {showPrenotazione === e.id &&
+                      showListReservation === true && (
+                        <>
+                          <Col xs={1}>N°</Col>
+                          <Col xs={3}>Data</Col>
+                          <Col xs={5}>Nome</Col>
+                          <Col xs={3}>Persone</Col>
+                        </>
+                      )}
                   </Row>
                   <Row>
                     {showPrenotazione === e.id &&
-                      show === true &&
+                      showListReservation === true &&
                       e.prenotazione &&
                       e.prenotazione.map((p, i) => (
                         <>

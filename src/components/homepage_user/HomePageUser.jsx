@@ -5,6 +5,7 @@ import CardPrenotazione from "./CardPrenotazione";
 import CreaPrenotazione from "./CreaPrenotazione";
 import "./HomePageUser.css";
 import PersonalPage from "./PersonalPage";
+import CardEvento from "./CardEvento";
 
 const HomePageUser = () => {
   const showReservationState = useSelector(
@@ -22,7 +23,7 @@ const HomePageUser = () => {
       </Row>
       <Row className="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around px-0 ">
         <Col xs={12} lg={8}>
-          {showCreateReservationState === true && <CreaPrenotazione />}
+          {showCreateReservationState === true && <CardEvento />}
           {showPersonal === true && <PersonalPage />}
           {showReservationState === true && <CardPrenotazione />}
         </Col>

@@ -1,10 +1,15 @@
-import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Badge, Button, Col, Container, Row } from "react-bootstrap";
 import { VscLocation } from "react-icons/vsc";
 import { BsCalendar3 } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import moment from "moment";
 import "moment/locale/it";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Burger from "../assets/Burger.png";
+import Ristorante from "../assets/restaurant.png";
+import Pub from "../assets/Pub.png";
+import Pizzeria from "../assets/pizza.png";
 
 const CardEvento = (props) => {
   const dispatch = useDispatch();
@@ -20,17 +25,33 @@ const CardEvento = (props) => {
   const [invioOK, setInvioOK] = useState(false);
   const [invioNOT_OK, setInvioNOT_OK] = useState(false);
   const [msg, setMsg] = useState("");
+  const [locale, setLocale] = useState("");
+  const [dataEvento, setDataEvento] = useState("");
+  const [empty, setEmpty] = useState("");
+  const [alertEmpty, setAlertEmpty] = useState(false);
   moment.locale("it");
   const [pageable, setPageable] = useState(0);
   const postiPrenotati = [];
+
+  const clickShowEvent = () => {
+    setEventState(true);
+  };
   for (let i = 1; i < 16; i++) {
     postiPrenotati.push(i);
   }
   const [reservation, setReservation] = useState();
-  const saveReservation = (e) => {
+
+  const saveReservation = (e, nome, data) => {
     setReservation(e);
+    setLocale(nome);
+    setDataEvento(data);
     setInvioReservation(true);
     setEventState(true);
+  };
+  const [eventCity, setEventCity] = useState("");
+  const handleChangeEvent = (e) => {
+    setEventCity(e);
+    setAlertEmpty(false);
   };
   const handleSelectChange = (e) => {
     setPostiSelezionati(e);
@@ -82,7 +103,7 @@ const CardEvento = (props) => {
   const getEventByCity = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/eventi/pageable/order/${props.citta}/data/${dateToStart}/page/${pageable}/size/9`,
+        `http://localhost:8080/api/eventi/pageable/order/${eventCity}/data/${dateToStart}/page/${pageable}/size/10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -92,6 +113,14 @@ const CardEvento = (props) => {
       if (response.ok) {
         const data = await response.json();
         setEvent(data.content);
+        setEventState(false);
+        setAlertEmpty(false);
+        if (data.empty === true) {
+          setEmpty("Siamo spiacenti, ma non ci sono eventi a");
+          setAlertEmpty(true);
+        }
+      } else {
+        setEventState(false);
       }
     } catch {}
   };
@@ -109,6 +138,31 @@ const CardEvento = (props) => {
   }, [invioReservation]);
   return (
     <Container fluid>
+      <Row className="border border-secondary rounded justify-content-center searchSection">
+        <Col
+          md={7}
+          lg={4}
+          className="text-center d-flex flex-column justify-content-center p-3"
+        >
+          <div className="d-flex flex-column bg-light p-3 rounded">
+            <h5 className="fw-bold">Prenota un tavolo</h5>
+            <input
+              className="rounded p-1 mb-1"
+              type="text"
+              placeholder="Ricerca per città"
+              onChange={(e) => handleChangeEvent(e.target.value)}
+            ></input>
+
+            <Button variant={"secondary"} onClick={() => clickShowEvent()}>
+              {" "}
+              <span>
+                <BsSearch />
+              </span>{" "}
+              Cerca
+            </Button>
+          </div>
+        </Col>
+      </Row>
       <Row className="py-2 border border-secondary justify-content-center align-items-baseline bg-light rounded py-2 mt-2">
         <Col xs={4} md={4}>
           <h6>
@@ -126,35 +180,73 @@ const CardEvento = (props) => {
           </Button>
         </Col>
       </Row>
-      <Row className="justify-content-center my-2">
-        <Col xs={12} md={8} lg={6}>
-          {invioOK === true && (
-            <Alert variant={"success"}>Prenotazione effettuata</Alert>
-          )}
-          {invioNOT_OK === true && <Alert variant={"danger"}>{msg}</Alert>}
-        </Col>
-      </Row>
 
-      <Row className="d-flex border border-secondary justify-content-around bg-light rounded py-3 my-2">
+      <Row className="d-flex border border-secondary justify-content-around rounded py-3 my-2 bgSearch">
+        <Row className="justify-content-center my-2">
+          <Col xs={12} md={9} lg={9}>
+            {invioOK === true && (
+              <Alert className="text-center rounded-pill" variant={"success"}>
+                Prenotazione al <span className="fw-bold">{locale}</span> per
+                l'evento del{" "}
+                <span className="fw-bold">
+                  {moment(dataEvento).format("DD-MMM-YYYY")}
+                </span>{" "}
+                effettuata con successo!
+              </Alert>
+            )}
+            {invioNOT_OK === true && (
+              <Alert className="text-center rounded-pill" variant={"danger"}>
+                {msg}
+              </Alert>
+            )}
+            {alertEmpty === true && (
+              <Alert className="text-center rounded-pill" variant={"secondary"}>
+                {empty} {""}
+                <span className="fw-bold">{eventCity}</span>
+              </Alert>
+            )}
+          </Col>
+        </Row>
         {event &&
           event.map((e) => (
             <>
-              {/* <Row key={e.id} className="border border-tertiary mb-2 p-2 rounded"> */}
               <Col
+                key={e.id}
                 xs={11}
                 md={5}
-                className="border border-secondary rounded m-1 p-2 cardEvento"
+                lg={4}
+                className="border border-secondary rounded m-1 p-2 bg-light cardEvento"
               >
-                <Row xs={12} className="py-1">
-                  <Col xs={6} className="fst-italic">
-                    {" "}
-                    {e.locale.tipolocale}
-                  </Col>
-                  <Col xs={6} className="text-end">
-                    <span className="me-2">
-                      <BsCalendar3 />
-                    </span>
-                    <strong>{moment(e.data).format("DD-MMM-YYYY")}</strong>
+                <Row>
+                  <Col xs={12} className="text-center">
+                    {e.locale.tipolocale === "RISTORANTE" && (
+                      <img
+                        style={{ height: "80px", width: "100px" }}
+                        src={Ristorante}
+                        alt="IconaRistorante"
+                      />
+                    )}
+                    {e.locale.tipolocale === "PIZZERIA" && (
+                      <img
+                        style={{ height: "80px", width: "100px" }}
+                        src={Pizzeria}
+                        alt="IconaPizzeria"
+                      />
+                    )}
+                    {e.locale.tipolocale === "PUB" && (
+                      <img
+                        style={{ height: "80px", width: "100px" }}
+                        src={Pub}
+                        alt="IconaPub"
+                      />
+                    )}
+                    {e.locale.tipolocale === "BURGER" && (
+                      <img
+                        style={{ height: "80px", width: "100px" }}
+                        src={Burger}
+                        alt="IconaBurger"
+                      />
+                    )}
                   </Col>
                 </Row>
                 <Row className="text-center">
@@ -175,12 +267,24 @@ const CardEvento = (props) => {
                     {e.partita?.squadra1} vs {e.partita?.squadra2}
                   </strong>
                 </Row>
+                <Row xs={12} className="py-1">
+                  <Col xs={6} className="text-end fst-italic">
+                    {" "}
+                    {e.locale.tipolocale}
+                  </Col>
+                  <Col xs={6} className="text-start">
+                    <span className="me-2">
+                      <BsCalendar3 />
+                    </span>
+                    <strong>{moment(e.data).format("DD-MMM-YYYY")}</strong>
+                  </Col>
+                </Row>
                 <Row className="text-center">
                   <div> Posti Disponibili: {e.postidisponibili}</div>
                   <div>Per quanti vuoi prenotare?</div>
                 </Row>
                 <Row className="py-2 d-flex justify-content-center">
-                  <Col xs={5} className="d-flex justify-content-center">
+                  <Col xs={4} className="d-flex justify-content-center">
                     <select
                       className="rounded p-1"
                       onChange={(e) => handleSelectChange(e.target.value)}
@@ -192,11 +296,13 @@ const CardEvento = (props) => {
                       ))}
                     </select>
                   </Col>
-                  <Col xs={5}>
+                  <Col xs={4}>
                     <div className="d-flex align-items-center">
                       <Button
                         variant="success"
-                        onClick={() => saveReservation(e.id)}
+                        onClick={() =>
+                          saveReservation(e.id, e.locale.nomelocale, e.data)
+                        }
                       >
                         {" "}
                         Prenota
@@ -206,7 +312,6 @@ const CardEvento = (props) => {
                 </Row>
               </Col>
             </>
-            // </Row>
           ))}
       </Row>
     </Container>

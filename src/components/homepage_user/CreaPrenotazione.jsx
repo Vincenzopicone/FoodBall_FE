@@ -6,48 +6,51 @@ import CardEvento from "./CardEvento";
 import { SHOW_CARD_EVENT } from "../../redux/action";
 
 const CreaPrenotazione = () => {
-  const dispatch = useDispatch();
-  const [eventCity, setEventCity] = useState("Milano");
-  const handleChangeEvent = (e) => {
-    setEventCity(e);
-  };
-  const showCardEventState = useSelector((state) => state.show.showCardEvent);
-  const [eventState, setEventState] = useState();
-  const clickShowEvent = () => {
-    setEventState(!eventState);
-    dispatch({ type: SHOW_CARD_EVENT, payload: eventState });
-  };
+  // const dispatch = useDispatch();
+  // const [eventCity, setEventCity] = useState("");
+  // const handleChangeEvent = (e) => {
+  //   setEventCity(e);
+  // };
+  // const showCardEventState = useSelector((state) => state.show.showCardEvent);
+  // const [eventState, setEventState] = useState(false);
+  // const clickShowEvent = () => {
+  //   setEventState(true);
+  //   dispatch({ type: SHOW_CARD_EVENT, payload: eventState });
+  // };
   return (
     <>
-      {/* <Row className="text-center ">
-        <Col xs={12}>
-          <h2>Dove vuoi prenotare?</h2>
+      {/* <Row className="border border-secondary rounded justify-content-center searchSection">
+        <Col
+          md={7}
+          lg={4}
+          className="text-center d-flex flex-column justify-content-center p-3"
+        >
+          <div className="d-flex flex-column bg-light p-3 rounded">
+            <h5 className="fw-bold">Prenota un tavolo</h5>
+            <input
+              className="rounded p-1 mb-1"
+              type="text"
+              placeholder="Ricerca per città"
+              onChange={(e) => handleChangeEvent(e.target.value)}
+            ></input>
+
+            <Button variant={"secondary"} onClick={() => clickShowEvent()}>
+              {" "}
+              <span>
+                <BsSearch />
+              </span>{" "}
+              Cerca
+            </Button>
+          </div>
         </Col>
+        {/* <Col xs={6} className="backgroundSearch">
+          <div></div>
+        </Col> */}
+      {/* </Row> */}
+      {/* <Row> */}
+      {/* {showCardEventState === true && <CardEvento citta={eventCity} />} */}
+      {/* <CardEvento citta={eventCity} />
       </Row> */}
-      <Row className="border border-secondary rounded justify-content-start p-3 searchSection">
-        <Col md={3} lg={3} className="text-start d-flex flex-column">
-          <h5 className="fw-bold">Prenota un tavolo</h5>
-          <input
-            className="rounded p-1 mb-1"
-            type="text"
-            placeholder="Ricerca per città"
-            onChange={(e) => handleChangeEvent(e.target.value)}
-          ></input>
-          {/* </Col>
-        <Col ms={3} lg={3} className="text-center"> */}
-          <Button variant={"secondary"} onClick={() => clickShowEvent()}>
-            {" "}
-            <span>
-              <BsSearch />
-            </span>{" "}
-            Cerca
-          </Button>
-        </Col>
-        <Col xs={2}></Col>
-      </Row>
-      <Row>
-        {showCardEventState === true && <CardEvento citta={eventCity} />}
-      </Row>
     </>
   );
 };

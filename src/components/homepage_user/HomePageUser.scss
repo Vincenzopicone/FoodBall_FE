@@ -1,7 +1,14 @@
 .homePageUser {
   min-height: 100vh;
-  background-image: url("../assets/Football_pitch.png");
-  background-size: cover;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 49%,
+    rgba(214, 215, 212, 1) 100%
+  );
+
+  // background-image: url("../assets/BG_HomePageUser.jpg");
+  // background-size: cover;
 }
 .cardPrenotazione {
   box-shadow: 4px 4px 4px 4px lightgray;
@@ -13,14 +20,24 @@
 }
 
 .searchSection {
-  background: beige;
-  // background-image: url("../assets/BannerCerca.jpg");
+  background-image: url("../assets/BG-SearchBar.jpg");
   background-size: cover;
-  height: 23vh;
+  background-position: center;
+  height: 35vh;
 }
-.cardEvento {
-  box-shadow: 4px 4px 4px 4px lightgray;
+
+.bgSearch {
+  // background-image: url("../assets/BG-searchfield.jpg");
+  // background-size: cover;
+  // background-position: center;
 }
+// .backgroundSearch {
+//   background-image: url("../assets/Stadio.jpg");
+//   background-size: cover;
+// }
+// .cardEvento {
+//   box-shadow: 4px 4px 4px 4px lightgray;
+// }
 .cardEvento:hover {
   transform: scale(1.02);
   background-color: antiquewhite;

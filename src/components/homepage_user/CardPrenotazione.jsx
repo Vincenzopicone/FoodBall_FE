@@ -1,10 +1,13 @@
 import { Alert, Button, Col, Modal, Row } from "react-bootstrap";
-import PlaceHolderRistorante from "../assets/PlaceHolderRistorante.png";
 import moment from "moment";
 import "moment/locale/it";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { SAVE_MY_RESERVATION } from "../../redux/action";
+import Burger from "../assets/Burger.png";
+import Ristorante from "../assets/restaurant.png";
+import Pub from "../assets/Pub.png";
+import Pizzeria from "../assets/pizza.png";
 
 const CardPrenotazione = () => {
   moment.locale("it");
@@ -16,13 +19,11 @@ const CardPrenotazione = () => {
   const [idDelete, setIdDelete] = useState();
   const [invioDelete, setInvioDelete] = useState(false);
   const [deleteOK, setDeleteOK] = useState(false);
-  const [msg, setMsg] = useState("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const [prenotazione, setPrenotazione] = useState();
   const refreshPersonalReservation = useSelector(
     (state) => state.show.refreshReservation
   );
@@ -31,7 +32,6 @@ const CardPrenotazione = () => {
     setInvioDelete(true);
     setIdDelete(e);
     handleClose();
-    console.log(e);
   };
   const getProfilo = async () => {
     try {
@@ -74,8 +74,8 @@ const CardPrenotazione = () => {
         setDeleteOK(true);
       } else {
         setDeleteOK(true);
-        const data = await response.json();
-        setMsg(data.message);
+        // const data = await response.json();
+        // setMsg(data.message);
       }
     } catch {}
   };
@@ -95,43 +95,68 @@ const CardPrenotazione = () => {
           <h2>Le mie prenotazioni</h2>
         </Col>
       </Row>
-      {deleteOK === true && (
-        <Row className="justify-content-center my-2">
-          <Col xs={12} md={8} lg={6}>
-            <Alert variant={"danger"}>
-              La prenotazione è stata cancellata con successo!
-            </Alert>
-          </Col>
-        </Row>
-      )}
+
       <Row className=" d-flex justify-content-around border border-secondary rounded mb-1 bg-light my-2 p-3">
+        {deleteOK === true && (
+          <Row className="justify-content-center my-2 text-center">
+            <Col xs={12} md={8} lg={5}>
+              <Alert variant={"success"}>
+                La prenotazione è stata cancellata con successo!
+              </Alert>
+            </Col>
+          </Row>
+        )}
         {prenotazione &&
           prenotazione.map((e) => (
             <Col
+              key={e.id}
               xs={12}
               md={5}
-              lg={5}
+              lg={4}
               className="border border-secondary rounded m-1 cardEvento"
             >
-              <Row key={e.id}>
-                <Col xs={6}>
-                  <img
-                    style={{ height: "130px", width: "130px" }}
-                    src={PlaceHolderRistorante}
-                    alt="Placeholder ristorante"
-                  />
+              <Row key={e.id} className="py-2">
+                <Col xs={4}>
+                  {e.evento.locale.tipolocale === "RISTORANTE" && (
+                    <img
+                      style={{ height: "80px", width: "100px" }}
+                      src={Ristorante}
+                      alt="IconaRistorante"
+                    />
+                  )}
+                  {e.evento.locale.tipolocale === "PIZZERIA" && (
+                    <img
+                      style={{ height: "80px", width: "100px" }}
+                      src={Pizzeria}
+                      alt="IconaPizzeria"
+                    />
+                  )}
+                  {e.evento.locale.tipolocale === "PUB" && (
+                    <img
+                      style={{ height: "80px", width: "100px" }}
+                      src={Pub}
+                      alt="IconaPub"
+                    />
+                  )}
+                  {e.evento.locale.tipolocale === "BURGER" && (
+                    <img
+                      style={{ height: "80px", width: "100px" }}
+                      src={Burger}
+                      alt="IconaBurger"
+                    />
+                  )}
                 </Col>
                 <Col
-                  xs={6}
+                  xs={8}
                   className="d-flex flex-column justify-content-center align-items-center"
                 >
-                  <div className="d-flex align-item-center">
+                  <div className="d-flex align-item-center text-uppercase">
                     <strong>{e.evento.locale.nomelocale}</strong>
                   </div>
                   <div>
                     {e.evento.locale.citta} - {e.evento.locale.indirizzo}
                   </div>
-                  <div>
+                  <div className="fst-italic">
                     <div>{e.evento.locale.tipolocale}</div>
                   </div>
                 </Col>
@@ -154,7 +179,7 @@ const CardPrenotazione = () => {
                 <Col className="text-center" xs={2}>
                   <strong>{e.numeropersone}</strong>
                 </Col>
-                <Col className="text-center" xs={7}>
+                <Col className="text-center " xs={7}>
                   <strong>
                     {e.evento.partita.squadra1} vs {e.evento.partita.squadra2}
                   </strong>

@@ -67,10 +67,10 @@ const Login = () => {
       <div className="bodyLogin"></div>
       <Container className="d-flex justify-content-center align-item-center bg-login">
         <Row className="d-flex align-items-center m-0 p-0">
-          <div class="login-box">
+          <div className="login-box">
             <p>Accedi a FoodBall</p>
             <form>
-              <div class="user-box">
+              <div className="user-box">
                 <input
                   defaultValue={username}
                   required=""
@@ -81,7 +81,7 @@ const Login = () => {
                 />
                 <label>Username</label>
               </div>
-              <div class="user-box">
+              <div className="user-box">
                 <input
                   defaultValue={password}
                   required=""
@@ -102,7 +102,7 @@ const Login = () => {
             </form>
             <p>
               Non sei registrato?{" "}
-              <a class="a2" onClick={() => navigate("/register")}>
+              <a className="a2" onClick={() => navigate("/register")}>
                 Registrati!
               </a>
             </p>

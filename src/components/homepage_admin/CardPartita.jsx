@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
@@ -12,6 +12,8 @@ const CardPartita = () => {
   const [matchList, setMatchList] = useState([]);
   const [numeroPostiDisponibili, setNumeroPostiDisponibili] = useState();
   const [partitaId, setPartitaId] = useState();
+  const [msg, setMsg] = useState();
+  const [error, setError] = useState(false);
 
   const createEvent = (p) => {
     setPartitaId(p);
@@ -40,8 +42,12 @@ const CardPartita = () => {
       if (response.ok) {
         setMatchList(data);
         setChangeDate(false);
+        setError(false);
       } else {
         setChangeDate(false);
+        setMsg(data.message);
+        setError(true);
+        setMatchList([]);
       }
     } catch {}
   };
@@ -70,7 +76,9 @@ const CardPartita = () => {
   };
 
   useEffect(() => {
-    getPartite();
+    if (changeDate === true) {
+      getPartite();
+    }
   }, [changeDate]);
 
   useEffect(() => {
@@ -89,11 +97,19 @@ const CardPartita = () => {
           <h5>Scegli la data</h5>
           <input
             onChange={(e) => searchMatch(e.target.value)}
-            className="rounded p-1"
+            className="rounded-pill p-2 text-center"
             type="date"
+            defaultValue={moment().format("YYYY-MM-DD")}
           />
         </Col>
       </Row>
+      {error === true && (
+        <Row className="justify-content-center my-2 text-center">
+          <Col xs={12} md={8} lg={7}>
+            <Alert variant={"danger"}>{msg}</Alert>
+          </Col>
+        </Row>
+      )}
       <Row className="border border-tertiary rounded mt-3">
         {matchList &&
           matchList.map((p) => (

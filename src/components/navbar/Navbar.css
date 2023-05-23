@@ -2,8 +2,10 @@
   width: 100%;
   color: white;
   font-weight: bold;
+  font-family: "Righteous", cursive;
 }
 
 .titleNav {
   font-weight: 900;
+  font-size: 3.5em;
 }/*# sourceMappingURL=Navbar.css.map */
