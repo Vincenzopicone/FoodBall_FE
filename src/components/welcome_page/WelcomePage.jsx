@@ -127,14 +127,16 @@ const WelcomePage = () => {
           className="bg-light border border-secondary rounded py-3"
         >
           <Row>
-            <Col xs={3}> DATA </Col>
+            <Col xs={2}> DATA </Col>
+            <Col xs={2}> ORARIO</Col>
             <Col xs={8}> PARTITA </Col>
           </Row>
           {matchList &&
             matchList.map((p) => (
               <Row key={p.id}>
-                <Col xs={3}>{moment(p.data).format("DD-MM")}</Col>
-                <Col xs={9} className="fw-bold">
+                <Col xs={2}>{moment(p.data).format("DD-MM")}</Col>
+                <Col xs={2}>{p.orario}</Col>
+                <Col xs={8} className="fw-bold">
                   {p.squadra1} <span className="fst-italic">vs</span>{" "}
                   {p.squadra2}
                 </Col>

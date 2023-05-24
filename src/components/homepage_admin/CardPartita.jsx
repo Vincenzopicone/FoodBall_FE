@@ -14,6 +14,7 @@ const CardPartita = () => {
   const [partitaId, setPartitaId] = useState();
   const [msg, setMsg] = useState();
   const [error, setError] = useState(false);
+  const [invioOK, setInvioOK] = useState(false);
 
   const createEvent = (p) => {
     setPartitaId(p);
@@ -70,7 +71,10 @@ const CardPartita = () => {
       const data = await response.json();
       if (response.ok) {
         setInvio(false);
+        setInvioOK(true);
       } else {
+        setInvioOK(false);
+        setInvio(false);
       }
     } catch {}
   };
@@ -110,30 +114,60 @@ const CardPartita = () => {
           </Col>
         </Row>
       )}
-      <Row className="border border-tertiary rounded mt-3">
+      {invioOK === true && (
+        <Row className="justify-content-center my-2 text-center">
+          <Col xs={12} md={8} lg={5}>
+            <Alert variant={"success"}>Evento creato con successo!</Alert>
+          </Col>
+        </Row>
+      )}
+      <Row className="mt-3">
         {matchList &&
           matchList.map((p) => (
-            <Col key={p.id} xs={4} className="border border-tertiary rounded">
-              <Row className="border border-tertiary rounded text-center">
-                <Col className="text-center">{p.data}</Col>
+            <Col
+              key={p.id}
+              xs={3}
+              className="border border-tertiary rounded m-1"
+            >
+              <Row className="border border-tertiary rounded text-center bg-dark text-light">
+                <Col className="text-center ">
+                  {moment(p.data).format("DD-MMMM-YYYY")}
+                </Col>
               </Row>
-              <Row className="py-2">
+              <Row className="py-2 align-items-center ">
                 <Col xs={12} className="fw-bold text-center">
                   {p.squadra1}
                 </Col>
-                <Col xs={12}>VS</Col>
-                <Col xs={12}> {p.squadra2}</Col>
-                <Col xs={12} className="border border-tertiary rounded">
+                <Col xs={12} className="fst-italic text-center">
+                  VS
+                </Col>
+                <Col xs={12} className="fw-bold text-center">
+                  {" "}
+                  {p.squadra2}
+                </Col>
+              </Row>
+              <Row className="bg-dark text-light">
+                <Col
+                  xs={12}
+                  className="border border-tertiary rounded text-center"
+                >
                   Quanti posti disponibili?
                 </Col>
-                <Col xs={12}>
+              </Row>
+              <Row className="justify-content-center py-2">
+                <Col xs={12} className="text-center my-2">
                   <input
-                    className="rounded"
-                    type="number"
-                    placeholder="Inserisci il numero"
+                    className="rounded-pill text-center"
+                    type="text"
+                    placeholder="Posti"
                     onChange={(e) => setNumeroPostiDisponibili(e.target.value)}
                   ></input>
-                  <Button variant="success" onClick={() => createEvent(p.id)}>
+                </Col>
+                <Col xs={12} className="text-center">
+                  <Button
+                    variant="success rounded-pill"
+                    onClick={() => createEvent(p.id)}
+                  >
                     {" "}
                     Crea Evento
                   </Button>

@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
+        {/* <NavBar /> */}
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />

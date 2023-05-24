@@ -1,14 +1,10 @@
-import { Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { BiFootball } from "react-icons/bi";
-import { IoIosFootball } from "react-icons/io";
 import "./Navbar.css";
 
 const NavBar = () => {
   return (
-    <nav className="navBar py-3 px-3 bg-dark">
+    <nav className="navBar px-3 bg-secondary">
       <div className=" d-flex justify-content-center ">
-        <h1 className="titleNav">
+        <h1 className="titleNav bg-dark rounded-circle py-2 px-3">
           <span className="text-success">F</span>
           <span>o</span>
           <span>o</span>

@@ -2,7 +2,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Sidebar from "../sidebar/Sidebar";
 import CardPrenotazione from "./CardPrenotazione";
-import CreaPrenotazione from "./CreaPrenotazione";
 import "./HomePageUser.css";
 import PersonalPage from "./PersonalPage";
 import CardEvento from "./CardEvento";

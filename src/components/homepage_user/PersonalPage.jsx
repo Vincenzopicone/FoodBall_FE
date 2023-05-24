@@ -117,7 +117,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setName(e.target.value)}
             defaultValue={profilo.name}
-            className="rounded p-2"
+            className="rounded p-2 rounded-pill"
             type="text"
             placeholder="Nome e cognome"
           ></input>
@@ -131,7 +131,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setEMail(e.target.value)}
             defaultValue={profilo.email}
-            className="rounded p-2"
+            className="rounded p-2 rounded-pill"
             type="email"
             placeholder="eMail"
           ></input>
@@ -145,7 +145,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setIndirizzo(e.target.value)}
             defaultValue={profilo.indirizzo}
-            className="rounded p-2"
+            className="rounded p-2 rounded-pill"
             type="text"
             placeholder="Indirizzo"
           ></input>
@@ -159,7 +159,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setCitta(e.target.value)}
             defaultValue={profilo.citta}
-            className="rounded p-2"
+            className="rounded p-2 rounded-pill"
             type="text"
             placeholder="Città"
           ></input>
@@ -173,7 +173,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setTelefono(e.target.value)}
             defaultValue={profilo.numerotelefono}
-            className="rounded p-2"
+            className="rounded p-2 rounded-pill"
             type="text"
             placeholder="Numero di telefono"
           ></input>
@@ -183,7 +183,10 @@ const PersonalPage = () => {
           lg={4}
           className="d-flex flex-column justify-content-center align-items-center"
         >
-          <Button variant="success" onClick={() => clickModifyProfile()}>
+          <Button
+            variant="success rounded-pill"
+            onClick={() => clickModifyProfile()}
+          >
             {" "}
             Modifica
           </Button>

@@ -6,9 +6,11 @@
     rgba(255, 255, 255, 1) 49%,
     rgba(214, 215, 212, 1) 100%
   );
+}
 
-  // background-image: url("../assets/BG_HomePageUser.jpg");
-  // background-size: cover;
+.fieldSelectedSidebar {
+  color: black;
+  background-color: lightgray;
 }
 .cardPrenotazione {
   box-shadow: 4px 4px 4px 4px lightgray;
@@ -16,29 +18,24 @@
 
 .sidebar {
   border-right: 1px lightgray solid;
-  box-shadow: 4px 4px 4px 4px lightgray;
 }
 
 .searchSection {
   background-image: url("../assets/BG-SearchBar.jpg");
   background-size: cover;
   background-position: center;
-  height: 35vh;
+  min-height: 35vh;
+  box-shadow: 64px 64px 64px 4px lightgray;
+}
+.reservationSection {
+  background-image: url("../assets/Campo3.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 20vh;
 }
 
-.bgSearch {
-  // background-image: url("../assets/BG-searchfield.jpg");
-  // background-size: cover;
-  // background-position: center;
-}
-// .backgroundSearch {
-//   background-image: url("../assets/Stadio.jpg");
-//   background-size: cover;
-// }
-// .cardEvento {
-//   box-shadow: 4px 4px 4px 4px lightgray;
-// }
 .cardEvento:hover {
   transform: scale(1.02);
-  background-color: antiquewhite;
+  background: lightgray;
+  cursor: pointer;
 }

@@ -62,26 +62,26 @@ const CardEvent = () => {
           },
         }
       );
-
-      const data = await response.json();
+      const data = response.json();
       if (response.ok) {
         setInvioDelete(false);
         setDeleteOK(true);
       } else {
         setInvioDelete(false);
+        setDeleteOK(false);
       }
     } catch {}
   };
 
   useEffect(() => {
     getEventi();
-  }, [invioDelete, deleteOK]);
+  }, [invioDelete]);
 
   useEffect(() => {
     if (invioDelete === true) {
       deleteEvent();
     }
-  }, [invioDelete, deleteOK]);
+  }, [invioDelete]);
 
   return (
     <Container>
@@ -96,7 +96,7 @@ const CardEvent = () => {
           <Row className="justify-content-center my-2 text-center">
             <Col xs={12} md={8} lg={5}>
               <Alert variant={"success"}>
-                L'evento è stato cancellata con successo!
+                L'evento è stato cancellato con successo!
               </Alert>
             </Col>
           </Row>
@@ -115,7 +115,7 @@ const CardEvent = () => {
                     </Row>
                     <Row>
                       <Col xs={4}>
-                        {e.partita.squadra1} vs {e.partita.squadra1}{" "}
+                        {e.partita.squadra1} vs {e.partita.squadra2}{" "}
                       </Col>
                       <Col xs={3}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
                       <Col xs={3}>{e.postidisponibili}</Col>

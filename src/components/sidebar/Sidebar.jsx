@@ -18,6 +18,13 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const myProfile = useSelector((state) => state.app.myProfile);
+  const showReservationState = useSelector(
+    (state) => state.show.showReservation
+  );
+  const showCreateReservationState = useSelector(
+    (state) => state.show.showCreateReservation
+  );
+  const showPersonal = useSelector((state) => state.show.showPersonalPage);
 
   const clickShowPersonalPage = () => {
     dispatch({ type: SHOW_PERSONALPAGE, payload: true });
@@ -68,10 +75,14 @@ const Sidebar = () => {
       <Col
         xs={4}
         lg={3}
-        className="text-center py-2 listSidebar"
+        className={
+          showPersonal === true
+            ? "text-center py-2 fieldSelectedSidebar text-uppercase"
+            : "text-center py-2 listSidebar"
+        }
         onClick={() => clickShowPersonalPage(true)}
       >
-        <h6 className="text-secondary me-3">
+        <h6 className=" me-3">
           <span className="iconSectionProfile">
             <CgProfile />{" "}
           </span>
@@ -81,10 +92,14 @@ const Sidebar = () => {
       <Col
         xs={4}
         lg={3}
-        className="text-center py-2 listSidebar"
+        className={
+          showCreateReservationState === true
+            ? "text-center py-2 fieldSelectedSidebar text-uppercase"
+            : "text-center py-2 listSidebar"
+        }
         onClick={() => clickShowCreateReservation(true)}
       >
-        <h6 className="text-secondary me-3">
+        <h6 className=" me-3">
           <span className="iconSectionProfile">
             <GiSoccerBall />{" "}
           </span>
@@ -94,10 +109,14 @@ const Sidebar = () => {
       <Col
         xs={4}
         lg={3}
-        className="text-center py-2 listSidebar"
+        className={
+          showReservationState === true
+            ? "text-center py-2 fieldSelectedSidebar text-uppercase"
+            : "text-center py-2 listSidebar"
+        }
         onClick={() => clickShowReservation(true)}
       >
-        <h6 className="text-secondary me-3">
+        <h6 className=" me-3">
           <span className="iconSectionProfile">
             <BsBook />{" "}
           </span>

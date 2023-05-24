@@ -90,9 +90,14 @@ const CardPrenotazione = () => {
   }, [refreshPersonalReservation, invioDelete]);
   return (
     <>
-      <Row className="d-flex text-center justify-content-center">
-        <Col xs={12} className="bg-light rounded border border-secondary py-3">
-          <h2>Le mie prenotazioni</h2>
+      <Row className="d-flex text-center border border-secondary justify-content-center reservationSection">
+        <Col
+          xs={9}
+          className="rounded  py-3 d-flex justify-content-center align-items-center"
+        >
+          <div className="bg-light rounded border border-secondary px-3 py-1">
+            <h2>Le mie prenotazioni</h2>
+          </div>
         </Col>
       </Row>
 
