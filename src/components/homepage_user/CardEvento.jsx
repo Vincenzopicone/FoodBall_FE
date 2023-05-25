@@ -13,8 +13,6 @@ import Pizzeria from "../assets/pizza.png";
 
 const CardEvento = () => {
   moment.locale("it");
-  // const dispatch = useDispatch();
-  // const dateToStart = moment().format("YYYY-MM-DD");
   const token = useSelector((state) => state.app.myProfile.accessToken);
   const myProfile = useSelector((state) => state.app.myProfile);
   const [eventState, setEventState] = useState(false);
@@ -24,9 +22,6 @@ const CardEvento = () => {
   const [event, setEvent] = useState([]);
   const [eventCity, setEventCity] = useState("");
   const [eventLocale, setEventLocale] = useState("");
-  // const showCardEventState = useSelector((state) => state.show.showCardEvent);
-  // const [showCardEventType, setShowCardEventType] = useState(false);
-  // const [showCardEventNameLocale, setShowCardEventNameLocale] = useState(false);
   const [postiSelezionati, setPostiSelezionati] = useState(1);
   const [orarioPrenotazione, setOrarioPrenotazione] = useState();
   const [notePrenotazione, setNotePrenotazione] = useState("");
@@ -41,10 +36,12 @@ const CardEvento = () => {
   const [tipoLocale, setTipoLocale] = useState("");
   const [ricercaPerCittà, setRicercaPerCittà] = useState(true);
   const [ricercaPerNomeLocale, setRicercaPerNomeLocale] = useState(false);
-
-  // const [pageable, setPageable] = useState(0);
+  const [showTextArea, setShowTextArea] = useState(false);
+  const [idTextArea, setIdTextArea] = useState();
   const postiPrenotati = [];
-
+  for (let i = 1; i < 16; i++) {
+    postiPrenotati.push(i);
+  }
   const clickShowEvent = () => {
     setEventState(true);
     setEventStateType(false);
@@ -71,9 +68,6 @@ const CardEvento = () => {
     setRicercaPerNomeLocale(true);
   };
 
-  for (let i = 1; i < 16; i++) {
-    postiPrenotati.push(i);
-  }
   const [reservation, setReservation] = useState();
 
   const saveReservation = (e, nome, data) => {
@@ -100,9 +94,12 @@ const CardEvento = () => {
   };
   const handleSelectChangeTime = (e) => {
     setOrarioPrenotazione(e);
-    console.log(e);
     setInvioNOT_OK(false);
     setInvioOK(false);
+  };
+  const clickShowTextArea = (id) => {
+    setIdTextArea(id);
+    setShowTextArea(!showTextArea);
   };
 
   const postAddRservation = async () => {
@@ -134,6 +131,7 @@ const CardEvento = () => {
         setEventState(false);
         setPostiSelezionati(1);
       } else {
+        setEventState(false);
         setInvioReservation(false);
         setInvioNOT_OK(true);
         setInvioOK(false);
@@ -158,12 +156,15 @@ const CardEvento = () => {
         setEvent(data);
         setEventState(false);
         setAlertEmpty(false);
+        setInvioReservation(false);
         if (data.empty === true) {
           setEmpty("Siamo spiacenti, ma non ci sono eventi a");
           setAlertEmpty(true);
+          setInvioReservation(false);
         }
       } else {
         setEventState(false);
+        setInvioReservation(false);
         setEmpty("Siamo spiacenti, ma non ci sono eventi a");
         setAlertEmpty(true);
       }
@@ -184,6 +185,7 @@ const CardEvento = () => {
         setEvent(data);
         setAlertEmpty(false);
         setEventStateType(false);
+        setInvioReservation(false);
         if (data.empty === true) {
           setEmpty("Siamo spiacenti, ma non ci sono eventi a");
           setAlertEmpty(true);
@@ -192,6 +194,7 @@ const CardEvento = () => {
         setEmpty("Siamo spiacenti, ma non ci sono eventi a");
         setAlertEmpty(true);
         setEventStateType(false);
+        setInvioReservation(false);
       }
     } catch {}
   };
@@ -210,41 +213,42 @@ const CardEvento = () => {
         setEvent(data);
         setEventStateName(false);
         setAlertEmpty(false);
+        setInvioReservation(false);
         if (data.empty === true) {
           setEmpty("Siamo spiacenti, ma non ci sono eventi a");
           setAlertEmpty(true);
         }
       } else {
         setEventStateName(false);
+        setInvioReservation(false);
       }
-    } catch {
-      setEventStateType(false);
-    }
+    } catch {}
   };
 
   useEffect(() => {
     if (eventState === true) {
       getEventByCity();
     }
-  }, [eventState, invioOK]);
+  }, [eventState, invioOK, invioReservation]);
 
   useEffect(() => {
     if (eventStateType === true) {
       getEventByCityAndType();
     }
-  }, [eventStateType]);
+  }, [eventStateType, invioOK, invioReservation]);
 
   useEffect(() => {
     if (eventStateName === true) {
       getEventByLocale();
     }
-  }, [eventStateName]);
+  }, [eventStateName, invioOK, invioReservation]);
 
   useEffect(() => {
     if (invioReservation === true) {
       postAddRservation();
     }
   }, [invioReservation]);
+
   return (
     <Container fluid>
       <Row className="border border-secondary rounded justify-content-center searchSection">
@@ -313,6 +317,7 @@ const CardEvento = () => {
         >
           <h6>Filtra per </h6>
           <select
+            defaultValue={"ALL"}
             className="ms-2 rounded text-center"
             onChange={(e) => handleChangeFilterType(e.target.value)}
           >
@@ -337,6 +342,8 @@ const CardEvento = () => {
                 <span className="fw-bold">
                   {moment(dataEvento).format("DD-MMM-YYYY")}
                 </span>{" "}
+                alle <span className="fw-bold me-1"> {orarioPrenotazione}</span>
+                {""}
                 effettuata con successo!
               </Alert>
             )}
@@ -361,35 +368,39 @@ const CardEvento = () => {
                 xs={11}
                 md={5}
                 lg={5}
-                xl={4}
-                className="border  rounded m-1 p-2 cardEvento"
+                xl={5}
+                xxl={4}
+                className="border  rounded my-2 mx-1 p-2 cardEvento position-relative"
               >
+                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark">
+                  {e.locale.tipolocale}
+                </span>
                 <Row>
-                  <Col xs={12} className="text-center">
+                  <Col xs={12} className="text-center my-2">
                     {e.locale.tipolocale === "RISTORANTE" && (
                       <img
-                        style={{ height: "80px", width: "100px" }}
+                        style={{ height: "85px", width: "100px" }}
                         src={Ristorante}
                         alt="IconaRistorante"
                       />
                     )}
                     {e.locale.tipolocale === "PIZZERIA" && (
                       <img
-                        style={{ height: "80px", width: "100px" }}
+                        style={{ height: "85px", width: "100px" }}
                         src={Pizzeria}
                         alt="IconaPizzeria"
                       />
                     )}
                     {e.locale.tipolocale === "PUB" && (
                       <img
-                        style={{ height: "80px", width: "100px" }}
+                        style={{ height: "85px", width: "100px" }}
                         src={Pub}
                         alt="IconaPub"
                       />
                     )}
                     {e.locale.tipolocale === "BURGER" && (
                       <img
-                        style={{ height: "80px", width: "100px" }}
+                        style={{ height: "85px", width: "100px" }}
                         src={Burger}
                         alt="IconaBurger"
                       />
@@ -402,40 +413,54 @@ const CardEvento = () => {
                       {e.locale?.nomelocale}
                     </span>{" "}
                   </div>
-                  <div>
+                  <div className="fst-italic">
                     <span>
                       <VscLocation />
                     </span>{" "}
                     {e.citta}, {e.locale?.indirizzo}
                   </div>
                 </Row>
-                <Row className="text-center py-2">
+                <Row className="text-center py-2 text-uppercase">
                   <strong>
-                    {e.partita?.squadra1} vs {e.partita?.squadra2}
+                    {e.partita?.squadra1} - {e.partita?.squadra2}
                   </strong>
                 </Row>
-                <Row xs={12} className="py-1">
-                  <Col xs={6} className="text-end fst-italic">
-                    {" "}
-                    {e.locale.tipolocale}
-                  </Col>
-                  <Col xs={6} className="text-start">
+                <Row xs={12} className="py-1 ">
+                  <Col xs={12} className="text-center">
                     <span className="me-2">
                       <BsCalendar3 />
                     </span>
                     <strong>{moment(e.data).format("DD-MMM-YYYY")}</strong>
                   </Col>
                 </Row>
-                <Row className="text-center">
-                  <div> POSTI DISPONIBILI: {e.postidisponibili}</div>
+                <Row className="text-center justify-content-center py-3">
+                  <Col xs={11} sm={9} md={9}>
+                    {e.postidisponibili > 0 && (
+                      <div className="bg-success rounded-pill text-light py-1">
+                        {" "}
+                        POSTI DISPONIBILI: {e.postidisponibili}
+                      </div>
+                    )}
+                    {e.postidisponibili === 0 && (
+                      <div className="bg-danger rounded-pill text-light py-1">
+                        {" "}
+                        POSTI NON DISPONIBILI
+                      </div>
+                    )}
+                  </Col>
                 </Row>
                 <Row className="text-center align-items-center">
-                  <Col xs={8} className="text-end">
-                    Per quanti vuoi prenotare?
-                  </Col>
-                  <Col xs={2} className="d-flex justify-content-center">
+                  <Col
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={6}
+                    className="d-flex justify-content-center align-items-center mb-2"
+                  >
+                    <div>Persone</div>
                     <select
-                      className="rounded p-1"
+                      defaultValue={1}
+                      className="rounded-pill text-center ms-2 p-1"
                       onChange={(e) => handleSelectChange(e.target.value)}
                     >
                       {postiPrenotati.map((e) => (
@@ -445,25 +470,49 @@ const CardEvento = () => {
                       ))}
                     </select>
                   </Col>
-                </Row>
-                <Row className="text-center align-items-center mt-2">
-                  <Col xs={8} className="text-end">
-                    A che ora vuoi prenotare?
-                  </Col>
-                  <Col xs={4} className="d-flex justify-content-center">
+                  <Col
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={6}
+                    className="d-flex justify-content-center align-items-center mb-2"
+                  >
+                    <div>Ora</div>
                     <input
-                      className="rounded p-1"
+                      className="rounded-pill text-center ms-2 p-1"
                       defaultValue={"19:30"}
                       type="time"
                       onChange={(e) => handleSelectChangeTime(e.target.value)}
                     ></input>
                   </Col>
                 </Row>
+                {showTextArea === true && idTextArea === e.id && (
+                  <Row className="d-flex justify-content-center">
+                    <Col xs={12}>
+                      <textarea
+                        className="rounded w-100 text-center"
+                        placeholder="Richieste per il ristorante"
+                        onChange={(e) => setNotePrenotazione(e.target.value)}
+                      ></textarea>
+                    </Col>
+                  </Row>
+                )}
                 <Row className="py-2 d-flex justify-content-center">
-                  <Col xs={4}>
-                    <div className="d-flex align-items-center">
+                  <Col xs={12} sm={7} md={8} className="mb-2">
+                    <div className="d-flex justify-content-center align-items-center">
                       <Button
-                        variant="success"
+                        variant="secondary rounded-pill"
+                        onClick={() => clickShowTextArea(e.id)}
+                      >
+                        {" "}
+                        Note per il ristorante
+                      </Button>
+                    </div>
+                  </Col>
+                  <Col xs={12} sm={5} md={4}>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <Button
+                        variant="primary rounded-pill"
                         onClick={() =>
                           saveReservation(e.id, e.locale.nomelocale, e.data)
                         }

@@ -164,9 +164,11 @@ const CardEvent = () => {
                       showListReservation === true && (
                         <>
                           <Col xs={1}>N°</Col>
-                          <Col xs={3}>Data</Col>
-                          <Col xs={5}>Nome</Col>
-                          <Col xs={3}>Persone</Col>
+                          <Col xs={1}>Data</Col>
+                          <Col xs={2}>Orario</Col>
+                          <Col xs={2}>Nome</Col>
+                          <Col xs={2}>Persone</Col>
+                          <Col xs={4}>Note</Col>
                         </>
                       )}
                   </Row>
@@ -179,11 +181,13 @@ const CardEvent = () => {
                           <Col key={p.id} xs={1}>
                             {i + 1}
                           </Col>
-                          <Col xs={3}>
-                            {moment(p.dataprenotazione).format("DD-MMM-YYYY")}
+                          <Col xs={1}>
+                            {moment(p.dataprenotazione).format("DD-MMM")}
                           </Col>
-                          <Col xs={5}>{p.utente.name}</Col>
-                          <Col xs={3}>{p.numeropersone}</Col>
+                          <Col xs={2}>{p.orario}</Col>
+                          <Col xs={2}>{p.utente.name}</Col>
+                          <Col xs={2}>{p.numeropersone}</Col>
+                          <Col xs={4}>{p.note}</Col>
                         </>
                       ))}
                   </Row>

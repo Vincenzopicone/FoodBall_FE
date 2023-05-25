@@ -1,8 +1,10 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./WelcomePage.css";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { BsCalendarDate } from "react-icons/bs";
+import { BiTime } from "react-icons/bi";
 import Burger from "../assets/Burger.png";
 import Ristorante from "../assets/restaurant.png";
 import Pub from "../assets/Pub.png";
@@ -15,6 +17,7 @@ const WelcomePage = () => {
   const [localeList, setLocaleList] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState();
   const clickBack = (n) => {
     if (page === 0) {
       setPage(0);
@@ -25,8 +28,12 @@ const WelcomePage = () => {
   };
 
   const clickForward = (n) => {
-    setRefresh(true);
-    setPage(n);
+    if (page < totalPages) {
+      setRefresh(true);
+      setPage(n);
+    } else {
+      setPage(totalPages - 1);
+    }
   };
 
   const getPartite = async () => {
@@ -44,6 +51,7 @@ const WelcomePage = () => {
       const data = await response.json();
       if (response.ok) {
         setMatchList(data.content);
+        setTotalPages(data.totalPages);
         setRefresh(false);
       } else {
       }
@@ -61,7 +69,6 @@ const WelcomePage = () => {
       const data = await response.json();
       if (response.ok) {
         setLocaleList(data);
-        console.log(data);
       } else {
       }
     } catch {}
@@ -76,102 +83,143 @@ const WelcomePage = () => {
 
   return (
     <Container fluid className="welcomePage m-0 pb-3">
-      <Row className="d-flex justify-content-center bg-light py-2 sticky-top">
-        <Col xs={2} className="d-flex justify-content-end">
-          <Button variant="dark" onClick={() => navigate("/login")}>
+      <Row className="d-flex justify-content-between bg-light py-2 sticky-top">
+        <Col xs={8} className="d-flex align-items-center">
+          <Link to={"/"} className="text-decoration-none text-dark">
+            <h3 className="fw-bold fst-italic">FoodBall</h3>
+          </Link>
+        </Col>
+        <Col xs={3} className="d-flex justify-content-end">
+          <Button
+            variant="secondary rounded-pill"
+            className="text-decoration-none fw-bold "
+            onClick={() => navigate("/login")}
+          >
             {" "}
             ACCEDI{" "}
           </Button>
         </Col>
-        <Col xs={2}>
+        {/* <Col xs={2}>
           <Button variant="dark" onClick={() => navigate("/register")}>
             REGISTRATI
           </Button>
-        </Col>
+        </Col> */}
       </Row>
       <Row className="d-flex justify-content-center align-items-center my-3">
         <Col
           xs={12}
           lg={9}
-          xl={6}
+          xl={7}
           className="bg-light text-center border border-secondary rounded py-2"
         >
-          <h1 className="titleFoodball">FoodBall</h1>
+          {/* <h1 className="titleFoodball">FoodBall</h1> */}
           <h6>
             Accedi o iscriviti a FoodBall per scoprire i migliori eventi della
             tua città
           </h6>
         </Col>
       </Row>
-      <Row className="d-flex justify-content-center my-3">
+
+      <Row className="d-flex justify-content-center align-items-center ">
         <Col
           xs={12}
           lg={9}
-          xl={6}
-          className="d-flex justify-content-between align-items-center bg-light border border-secondary rounded py-2"
-          s
+          xl={7}
+          className="bg-light border border-secondary rounded py-3 bgMatch"
         >
-          <Button variant="secondary" onClick={() => clickBack(page - 1)}>
-            INDIETRO
-          </Button>
-          <Button variant="secondary" onClick={() => clickForward(page + 1)}>
-            PROSSIMI EVENTI
-          </Button>
-        </Col>
-      </Row>
-      <Row className="d-flex justify-content-center align-items-center">
-        <Col
-          xs={12}
-          lg={9}
-          xl={6}
-          className="bg-light border border-secondary rounded py-3"
-        >
-          <Row>
-            <Col xs={2}> DATA </Col>
-            <Col xs={2}> ORARIO</Col>
-            <Col xs={8}> PARTITA </Col>
-          </Row>
-          {matchList &&
-            matchList.map((p) => (
-              <Row key={p.id}>
-                <Col xs={2}>{moment(p.data).format("DD-MM")}</Col>
-                <Col xs={2}>{p.orario}</Col>
-                <Col xs={8} className="fw-bold">
-                  {p.squadra1} <span className="fst-italic">vs</span>{" "}
-                  {p.squadra2}
+          <Row className="justify-content-center">
+            <Col
+              xs={10}
+              sm={10}
+              className="rounded border border-secondary text-center bg-light py-2"
+            >
+              {" "}
+              <h5 className="py-2">PARTITE IN PROGRAMMA</h5>
+              {matchList &&
+                matchList.map((p) => (
+                  <Row key={p.id} className="justify-content-center mb-1">
+                    <Col xs={6} sm={3} md={2} className="text-center">
+                      <span>
+                        <BsCalendarDate></BsCalendarDate>
+                      </span>{" "}
+                      {moment(p.data).format("DD-MM")}
+                    </Col>
+                    <Col xs={6} sm={3} md={3} className="text-center">
+                      <span>
+                        <BiTime />
+                      </span>{" "}
+                      {p.orario}
+                    </Col>
+                    <Col
+                      xs={12}
+                      sm={6}
+                      md={5}
+                      className="fw-bold text-center text-sm-start text-uppercase"
+                    >
+                      {p.squadra1} <span className="fst-italic ">-</span>{" "}
+                      {p.squadra2}
+                    </Col>
+                  </Row>
+                ))}
+              <Row className="d-flex justify-content-center">
+                <Col
+                  xs={12}
+                  lg={10}
+                  xl={7}
+                  className="d-flex justify-content-between align-items-center bg-light rounded py-2"
+                  s
+                >
+                  <Button
+                    variant="secondary"
+                    onClick={() => clickBack(page - 1)}
+                  >
+                    INDIETRO
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => clickForward(page + 1)}
+                  >
+                    PROSSIMI EVENTI
+                  </Button>
                 </Col>
               </Row>
-            ))}
+            </Col>
+          </Row>
         </Col>
       </Row>
-      <Row className="d-flex justify-content-center my-3">
-        <Col
-          xs={12}
-          lg={9}
-          xl={6}
-          className="d-flex justify-content-center align-items-center bg-light border border-secondary rounded py-2"
-          s
-        >
-          <h2>Cerca fra tantissimi locali</h2>
-        </Col>
-      </Row>
+
       <Row className="d-flex justify-content-center align-items-center mt-3">
         <Col
           xs={12}
           lg={9}
-          xl={6}
+          xl={7}
           className="bg-light border border-secondary rounded py-3"
         >
+          <Row className="d-flex justify-content-center my-3">
+            <Col
+              xs={12}
+              lg={9}
+              xl={7}
+              className="d-flex justify-content-center align-items-center bg-light rounded py-2"
+              s
+            >
+              <h2>Scelti per te</h2>
+            </Col>
+          </Row>
           <Row className="d-flex justify-content-around align-items-center">
             {localeList &&
               localeList.map((l) => (
                 <Col
+                  key={l.id}
                   xs={12}
                   md={5}
                   lg={3}
-                  className="border border-secondary rounded p-2 m-1"
+                  className="border border-secondary rounded p-2 mx-1 my-2 position-relative"
                 >
-                  <Row>
+                  <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+                    {l.tipolocale}
+                  </span>
+                  <Row className="py-2">
                     <Col xs={12} className="text-center">
                       {l.tipolocale === "RISTORANTE" && (
                         <img

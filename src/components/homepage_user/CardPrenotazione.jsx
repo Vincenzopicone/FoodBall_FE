@@ -105,7 +105,7 @@ const CardPrenotazione = () => {
         {deleteOK === true && (
           <Row className="justify-content-center my-2 text-center">
             <Col xs={12} md={8} lg={5}>
-              <Alert variant={"success"}>
+              <Alert variant={"success rounded-pill"}>
                 La prenotazione è stata cancellata con successo!
               </Alert>
             </Col>
@@ -116,12 +116,15 @@ const CardPrenotazione = () => {
             <Col
               key={e.id}
               xs={12}
-              md={5}
-              lg={4}
-              className="border border-secondary rounded m-1 cardEvento"
+              md={8}
+              lg={8}
+              className="border border-secondary rounded mx-1 my-2 cardEvento position-relative "
             >
-              <Row key={e.id} className="py-2">
-                <Col xs={4}>
+              <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark">
+                {e.evento.locale.tipolocale}
+              </span>
+              <Row key={e.id} className="py-3">
+                <Col xs={4} className="text-center">
                   {e.evento.locale.tipolocale === "RISTORANTE" && (
                     <img
                       style={{ height: "80px", width: "100px" }}
@@ -161,31 +164,24 @@ const CardPrenotazione = () => {
                   <div>
                     {e.evento.locale.citta} - {e.evento.locale.indirizzo}
                   </div>
-                  <div className="fst-italic">
-                    <div>{e.evento.locale.tipolocale}</div>
-                  </div>
                 </Col>
               </Row>
               <Row className="border-top py-1">
-                <Col className="text-center" xs={3}>
-                  DATA
-                </Col>
-                <Col className="text-center" xs={2}>
-                  PERSONE
-                </Col>
-                <Col className="text-center" xs={7}>
-                  PARTITA
-                </Col>
-              </Row>
-              <Row>
-                <Col className="text-center" xs={3}>
+                <Col className="text-center" xs={4} lg={2}>
+                  <div>DATA</div>
                   <strong>{moment(e.evento.data).format("DD-MMM")}</strong>
                 </Col>
-                <Col className="text-center" xs={2}>
+                <Col className="text-center" xs={4} lg={2}>
+                  <div>ORA</div>
+                  <strong>{e.orario}</strong>
+                </Col>
+                <Col className="text-center" xs={4} lg={2}>
+                  <div>PERSONE</div>
                   <strong>{e.numeropersone}</strong>
                 </Col>
-                <Col className="text-center " xs={7}>
-                  <strong>
+                <Col className="text-center" xs={12} lg={6}>
+                  <div>PARTITA</div>
+                  <strong className="text-uppercase">
                     {e.evento.partita.squadra1} vs {e.evento.partita.squadra2}
                   </strong>
                 </Col>

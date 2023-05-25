@@ -56,7 +56,7 @@ const Sidebar = () => {
       <Col
         xs={12}
         lg={3}
-        className="d-flex text-center justify-content-center align-items-center bg-light"
+        className="d-flex text-center justify-content-center align-items-center listSidebar"
       >
         <div className="mx-2 fst-italic">
           Ciao, <strong>{myProfile.name}</strong>
@@ -69,7 +69,7 @@ const Sidebar = () => {
           <span className="me-2">
             <FiPower />
           </span>
-          <span>Esci</span>
+          <span>Logout</span>
         </Button>
       </Col>
       <Col
@@ -77,7 +77,7 @@ const Sidebar = () => {
         lg={3}
         className={
           showPersonal === true
-            ? "text-center py-2 fieldSelectedSidebar text-uppercase"
+            ? "text-center py-2 fieldSelectedSidebar"
             : "text-center py-2 listSidebar"
         }
         onClick={() => clickShowPersonalPage(true)}
@@ -94,7 +94,7 @@ const Sidebar = () => {
         lg={3}
         className={
           showCreateReservationState === true
-            ? "text-center py-2 fieldSelectedSidebar text-uppercase"
+            ? "text-center py-2 fieldSelectedSidebar"
             : "text-center py-2 listSidebar"
         }
         onClick={() => clickShowCreateReservation(true)}
@@ -111,7 +111,7 @@ const Sidebar = () => {
         lg={3}
         className={
           showReservationState === true
-            ? "text-center py-2 fieldSelectedSidebar text-uppercase"
+            ? "text-center py-2 fieldSelectedSidebar"
             : "text-center py-2 listSidebar"
         }
         onClick={() => clickShowReservation(true)}

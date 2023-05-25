@@ -113,11 +113,11 @@ const PersonalPage = () => {
           lg={4}
           className="d-flex flex-column justify-content-center align-items-center mb-3"
         >
-          <div>Nome e cognome</div>
+          <div>Nome e Cognome</div>
           <input
             onChange={(e) => setName(e.target.value)}
             defaultValue={profilo.name}
-            className="rounded p-2 rounded-pill"
+            className="rounded p-2 rounded-pill text-center"
             type="text"
             placeholder="Nome e cognome"
           ></input>
@@ -127,11 +127,11 @@ const PersonalPage = () => {
           lg={4}
           className="d-flex flex-column justify-content-center align-items-center mb-3"
         >
-          <div>eMail</div>
+          <div>Email</div>
           <input
             onChange={(e) => setEMail(e.target.value)}
             defaultValue={profilo.email}
-            className="rounded p-2 rounded-pill"
+            className="rounded p-2 rounded-pill  text-center"
             type="email"
             placeholder="eMail"
           ></input>
@@ -145,7 +145,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setIndirizzo(e.target.value)}
             defaultValue={profilo.indirizzo}
-            className="rounded p-2 rounded-pill"
+            className="rounded p-2 rounded-pill  text-center"
             type="text"
             placeholder="Indirizzo"
           ></input>
@@ -159,7 +159,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setCitta(e.target.value)}
             defaultValue={profilo.citta}
-            className="rounded p-2 rounded-pill"
+            className="rounded p-2 rounded-pill  text-center"
             type="text"
             placeholder="Città"
           ></input>
@@ -173,7 +173,7 @@ const PersonalPage = () => {
           <input
             onChange={(e) => setTelefono(e.target.value)}
             defaultValue={profilo.numerotelefono}
-            className="rounded p-2 rounded-pill"
+            className="rounded p-2 rounded-pill  text-center"
             type="text"
             placeholder="Numero di telefono"
           ></input>

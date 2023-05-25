@@ -20,8 +20,8 @@ const HomePageUser = () => {
       <Row className="border border-tertiary mb-4 sticky-top ">
         <Sidebar />
       </Row>
-      <Row className="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around px-0 ">
-        <Col xs={12} lg={8}>
+      <Row className="d-flex flex-column justify-content-center align-items-center justify-content-lg-around px-0 ">
+        <Col xs={12} sm={9} md={11} lg={8}>
           {showCreateReservationState === true && <CardEvento />}
           {showPersonal === true && <PersonalPage />}
           {showReservationState === true && <CardPrenotazione />}

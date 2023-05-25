@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./LoginRegister.css";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SAVE_MY_PROFILE, REFRESH_RESERVATION } from "../../redux/action";
 
@@ -106,6 +106,9 @@ const Login = () => {
                 Registrati!
               </a>
             </p>
+
+            <a onClick={() => navigate("/")}>Torna alla Homepage</a>
+
             {erroreLogin === true && (
               <p className="text-danger"> Username o password errata!</p>
             )}
