@@ -8,10 +8,7 @@ import showReducer from "../reducers/show";
 const persistConfig = {
   key: "root",
   storage: storage,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+  transforms: [encryptTransform({ secretKey: process.env.REACT_APP_TOKEN })],
 };
 
 const rootReducers = combineReducers({
@@ -22,5 +19,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 export const persistor = persistStore(store);

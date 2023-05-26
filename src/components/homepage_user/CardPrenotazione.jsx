@@ -127,28 +127,28 @@ const CardPrenotazione = () => {
                 <Col xs={4} className="text-center">
                   {e.evento.locale.tipolocale === "RISTORANTE" && (
                     <img
-                      style={{ height: "80px", width: "100px" }}
+                      style={{ height: "90px", width: "100px" }}
                       src={Ristorante}
                       alt="IconaRistorante"
                     />
                   )}
                   {e.evento.locale.tipolocale === "PIZZERIA" && (
                     <img
-                      style={{ height: "80px", width: "100px" }}
+                      style={{ height: "90px", width: "100px" }}
                       src={Pizzeria}
                       alt="IconaPizzeria"
                     />
                   )}
                   {e.evento.locale.tipolocale === "PUB" && (
                     <img
-                      style={{ height: "80px", width: "100px" }}
+                      style={{ height: "90px", width: "100px" }}
                       src={Pub}
                       alt="IconaPub"
                     />
                   )}
                   {e.evento.locale.tipolocale === "BURGER" && (
                     <img
-                      style={{ height: "80px", width: "100px" }}
+                      style={{ height: "90px", width: "100px" }}
                       src={Burger}
                       alt="IconaBurger"
                     />

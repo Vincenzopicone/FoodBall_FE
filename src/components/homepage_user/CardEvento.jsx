@@ -379,28 +379,28 @@ const CardEvento = () => {
                   <Col xs={12} className="text-center my-2">
                     {e.locale.tipolocale === "RISTORANTE" && (
                       <img
-                        style={{ height: "85px", width: "100px" }}
+                        style={{ height: "90px", width: "100px" }}
                         src={Ristorante}
                         alt="IconaRistorante"
                       />
                     )}
                     {e.locale.tipolocale === "PIZZERIA" && (
                       <img
-                        style={{ height: "85px", width: "100px" }}
+                        style={{ height: "90px", width: "100px" }}
                         src={Pizzeria}
                         alt="IconaPizzeria"
                       />
                     )}
                     {e.locale.tipolocale === "PUB" && (
                       <img
-                        style={{ height: "85px", width: "100px" }}
+                        style={{ height: "90px", width: "100px" }}
                         src={Pub}
                         alt="IconaPub"
                       />
                     )}
                     {e.locale.tipolocale === "BURGER" && (
                       <img
-                        style={{ height: "85px", width: "100px" }}
+                        style={{ height: "90px", width: "100px" }}
                         src={Burger}
                         alt="IconaBurger"
                       />

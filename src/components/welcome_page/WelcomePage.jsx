@@ -18,6 +18,7 @@ const WelcomePage = () => {
   const [refresh, setRefresh] = useState(false);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState();
+
   const clickBack = (n) => {
     if (page === 0) {
       setPage(0);
@@ -31,7 +32,7 @@ const WelcomePage = () => {
     if (page < totalPages) {
       setRefresh(true);
       setPage(n);
-    } else {
+    } else if (page === totalPages) {
       setPage(totalPages - 1);
     }
   };
@@ -170,13 +171,13 @@ const WelcomePage = () => {
                   s
                 >
                   <Button
-                    variant="secondary"
+                    variant="outline-secondary rounded-pill"
                     onClick={() => clickBack(page - 1)}
                   >
                     INDIETRO
                   </Button>
                   <Button
-                    variant="secondary"
+                    variant="outline-secondary rounded-pill"
                     onClick={() => clickForward(page + 1)}
                   >
                     PROSSIMI EVENTI
@@ -214,37 +215,37 @@ const WelcomePage = () => {
                   xs={12}
                   md={5}
                   lg={3}
-                  className="border border-secondary rounded p-2 mx-1 my-2 position-relative"
+                  className="rounded p-2 mx-1 my-2 position-relative cardRestaurantWP"
                 >
-                  <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+                  <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark">
                     {l.tipolocale}
                   </span>
-                  <Row className="py-2">
+                  <Row className="py-3">
                     <Col xs={12} className="text-center">
                       {l.tipolocale === "RISTORANTE" && (
                         <img
-                          style={{ height: "80px", width: "100px" }}
+                          style={{ height: "90px", width: "100px" }}
                           src={Ristorante}
                           alt="IconaRistorante"
                         />
                       )}
                       {l.tipolocale === "PIZZERIA" && (
                         <img
-                          style={{ height: "80px", width: "100px" }}
+                          style={{ height: "90px", width: "100px" }}
                           src={Pizzeria}
                           alt="IconaPizzeria"
                         />
                       )}
                       {l.tipolocale === "PUB" && (
                         <img
-                          style={{ height: "80px", width: "100px" }}
+                          style={{ height: "90px", width: "100px" }}
                           src={Pub}
                           alt="IconaPub"
                         />
                       )}
                       {l.tipolocale === "BURGER" && (
                         <img
-                          style={{ height: "80px", width: "100px" }}
+                          style={{ height: "90px", width: "100px" }}
                           src={Burger}
                           alt="IconaBurger"
                         />
