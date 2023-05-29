@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import moment from "moment";
-
+import { BsListCheck, BsCalendarDate, BsCircle } from "react-icons/bs";
+import { GiSoccerField } from "react-icons/gi";
 const CardEvent = () => {
   const token = useSelector((state) => state.app.myProfile.accessToken);
   const idLocale = useSelector((state) => state.app.myProfile.locale.id);
@@ -106,30 +107,59 @@ const CardEvent = () => {
             <>
               <Col xs={12} className="border border-secondary rounded mb-3">
                 <Row key={e.id} className="align-items-center ">
-                  <Col xs={8}>
-                    <Row>
-                      <Col xs={4}>EVENTO </Col>
-                      <Col xs={3}>DATA EVENTO</Col>
-                      <Col xs={3}>DISPONIBILI</Col>
-                      <Col xs={2}>PRENOTAZIONI</Col>
-                    </Row>
-                    <Row>
-                      <Col xs={4}>
-                        {e.partita.squadra1} vs {e.partita.squadra2}{" "}
+                  <Col xs={12} md={8} className="mb-2">
+                    <Row className="">
+                      <Col xs={5}>
+                        <div>PARTITA</div>
+                        <div className="fst-italic">
+                          {" "}
+                          {e.partita.squadra1} - {e.partita.squadra2}{" "}
+                        </div>{" "}
                       </Col>
-                      <Col xs={3}>{moment(e.data).format("DD-MMM-YYYY")}</Col>
-                      <Col xs={3}>{e.postidisponibili}</Col>
-                      <Col xs={2}>{e.prenotazione.length}</Col>
+                      <Col xs={3}>
+                        <div>
+                          <BsCalendarDate />
+                        </div>
+                        <div>{moment(e.data).format("DD-MMM")}</div>
+                      </Col>
+                      <Col xs={2}>
+                        {e.postidisponibili > 0 && (
+                          <>
+                            <div>
+                              <BsCircle className="text-success rounded-circle bg-success" />
+                            </div>
+                            <div>{e.postidisponibili}</div>
+                          </>
+                        )}
+                        {e.postidisponibili === 0 && (
+                          <>
+                            <div>
+                              <BsCircle className="text-danger rounded-circle bg-danger" />
+                            </div>
+                            <div>{e.postidisponibili}</div>
+                          </>
+                        )}
+                      </Col>
+                      <Col xs={2}>
+                        <div>
+                          <BsListCheck />
+                        </div>
+                        <div>{e.prenotazione.length}</div>
+                      </Col>
                     </Row>
                   </Col>
-                  <Col xs={2}>
+                  <Col
+                    xs={12}
+                    md={4}
+                    className="d-flex justify-content-center mb-2"
+                  >
                     {" "}
-                    <Button onClick={() => clickShowReservation(e.id)}>
+                    <Button
+                      className="me-2"
+                      onClick={() => clickShowReservation(e.id)}
+                    >
                       Dettaglio
                     </Button>
-                  </Col>
-                  <Col xs={2}>
-                    {" "}
                     <Button variant="danger" onClick={handleShow}>
                       Cancella
                     </Button>
@@ -163,7 +193,9 @@ const CardEvent = () => {
                     {showPrenotazione === e.id &&
                       showListReservation === true && (
                         <>
-                          <Col xs={1}>N°</Col>
+                          <Col xs={1} className="d-none d-md-inline">
+                            N°
+                          </Col>
                           <Col xs={1}>Data</Col>
                           <Col xs={2}>Orario</Col>
                           <Col xs={2}>Nome</Col>
@@ -178,7 +210,7 @@ const CardEvent = () => {
                       e.prenotazione &&
                       e.prenotazione.map((p, i) => (
                         <>
-                          <Col key={p.id} xs={1}>
+                          <Col key={p.id} xs={1} className="d-none d-md-inline">
                             {i + 1}
                           </Col>
                           <Col xs={1}>

@@ -1,4 +1,12 @@
-import { Alert, Badge, Button, Col, Container, Row } from "react-bootstrap";
+import {
+  Alert,
+  Badge,
+  Button,
+  Col,
+  Container,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import { VscLocation } from "react-icons/vsc";
 import { BsCalendar3 } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
@@ -38,6 +46,7 @@ const CardEvento = () => {
   const [ricercaPerNomeLocale, setRicercaPerNomeLocale] = useState(false);
   const [showTextArea, setShowTextArea] = useState(false);
   const [idTextArea, setIdTextArea] = useState();
+  const [spinner, setSpinner] = useState(false);
   const postiPrenotati = [];
   for (let i = 1; i < 16; i++) {
     postiPrenotati.push(i);
@@ -45,6 +54,7 @@ const CardEvento = () => {
   const clickShowEvent = () => {
     setEventState(true);
     setEventStateType(false);
+    setSpinner(true);
   };
   const clickShowEventName = () => {
     setEventStateName(true);
@@ -130,11 +140,13 @@ const CardEvento = () => {
         setInvioNOT_OK(false);
         setEventState(false);
         setPostiSelezionati(1);
+        setSpinner(false);
       } else {
         setEventState(false);
         setInvioReservation(false);
         setInvioNOT_OK(true);
         setInvioOK(false);
+        setSpinner(false);
 
         setMsg(data.message);
       }
@@ -157,6 +169,7 @@ const CardEvento = () => {
         setEventState(false);
         setAlertEmpty(false);
         setInvioReservation(false);
+        setSpinner(false);
         if (data.empty === true) {
           setEmpty("Siamo spiacenti, ma non ci sono eventi a");
           setAlertEmpty(true);
@@ -167,6 +180,7 @@ const CardEvento = () => {
         setInvioReservation(false);
         setEmpty("Siamo spiacenti, ma non ci sono eventi a");
         setAlertEmpty(true);
+        setSpinner(false);
       }
     } catch {}
   };
@@ -186,6 +200,7 @@ const CardEvento = () => {
         setAlertEmpty(false);
         setEventStateType(false);
         setInvioReservation(false);
+        setSpinner(false);
         if (data.empty === true) {
           setEmpty("Siamo spiacenti, ma non ci sono eventi a");
           setAlertEmpty(true);
@@ -195,6 +210,7 @@ const CardEvento = () => {
         setAlertEmpty(true);
         setEventStateType(false);
         setInvioReservation(false);
+        setSpinner(false);
       }
     } catch {}
   };
@@ -214,6 +230,7 @@ const CardEvento = () => {
         setEventStateName(false);
         setAlertEmpty(false);
         setInvioReservation(false);
+        setSpinner(false);
         if (data.empty === true) {
           setEmpty("Siamo spiacenti, ma non ci sono eventi a");
           setAlertEmpty(true);
@@ -221,6 +238,7 @@ const CardEvento = () => {
       } else {
         setEventStateName(false);
         setInvioReservation(false);
+        setSpinner(false);
       }
     } catch {}
   };
@@ -334,6 +352,14 @@ const CardEvento = () => {
 
       <Row className="d-flex border border-secondary bg-light justify-content-around rounded py-3 my-2 bgSearch">
         <Row className="justify-content-center my-2">
+          <Col xs={12} className="d-flex justify-content-center">
+            {spinner === true && (
+              <div>
+                <Spinner animation="border" variant="secondary" />
+              </div>
+            )}
+          </Col>
+
           <Col xs={12} md={9} lg={9}>
             {invioOK === true && (
               <Alert className="text-center rounded-pill" variant={"success"}>

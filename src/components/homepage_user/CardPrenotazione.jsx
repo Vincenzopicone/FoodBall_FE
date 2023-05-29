@@ -1,4 +1,4 @@
-import { Alert, Button, Col, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Col, Modal, Row, Spinner } from "react-bootstrap";
 import moment from "moment";
 import "moment/locale/it";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,9 @@ import Burger from "../assets/Burger.png";
 import Ristorante from "../assets/restaurant.png";
 import Pub from "../assets/Pub.png";
 import Pizzeria from "../assets/pizza.png";
+import { BiTimeFive } from "react-icons/bi";
+import { SlPeople } from "react-icons/sl";
+import { BsCalendarDate } from "react-icons/bs";
 
 const CardPrenotazione = () => {
   moment.locale("it");
@@ -20,6 +23,7 @@ const CardPrenotazione = () => {
   const [invioDelete, setInvioDelete] = useState(false);
   const [deleteOK, setDeleteOK] = useState(false);
   const [show, setShow] = useState(false);
+  const [spinner, setSpinner] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -49,8 +53,10 @@ const CardPrenotazione = () => {
 
       const data = await response.json();
       if (response.ok) {
+        setSpinner(false);
         dispatch({ type: SAVE_MY_RESERVATION, payload: data.prenotazioni });
       } else {
+        setSpinner(false);
       }
     } catch (error) {}
   };
@@ -72,8 +78,10 @@ const CardPrenotazione = () => {
       if (response.ok) {
         setInvioDelete(false);
         setDeleteOK(true);
+        setSpinner(false);
       } else {
         setDeleteOK(true);
+        setSpinner(false);
         // const data = await response.json();
         // setMsg(data.message);
       }
@@ -96,12 +104,13 @@ const CardPrenotazione = () => {
           className="rounded  py-3 d-flex justify-content-center align-items-center"
         >
           <div className="bg-light rounded border border-secondary px-3 py-1">
-            <h2>Le mie prenotazioni</h2>
+            <h2>LE MIE PRENOTAZIONI</h2>
           </div>
         </Col>
       </Row>
 
       <Row className=" d-flex justify-content-around border border-secondary rounded mb-1 bg-light my-2 p-3">
+        {spinner === true && <Spinner animation="border" variant="secondary" />}
         {deleteOK === true && (
           <Row className="justify-content-center my-2 text-center">
             <Col xs={12} md={8} lg={5}>
@@ -117,10 +126,10 @@ const CardPrenotazione = () => {
               key={e.id}
               xs={12}
               md={8}
-              lg={8}
+              lg={7}
               className="border border-secondary rounded mx-1 my-2 cardEvento position-relative "
             >
-              <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark">
+              <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark">
                 {e.evento.locale.tipolocale}
               </span>
               <Row key={e.id} className="py-3">
@@ -168,15 +177,21 @@ const CardPrenotazione = () => {
               </Row>
               <Row className="border-top py-1">
                 <Col className="text-center" xs={4} lg={2}>
-                  <div>DATA</div>
+                  <div>
+                    <BsCalendarDate />
+                  </div>
                   <strong>{moment(e.evento.data).format("DD-MMM")}</strong>
                 </Col>
                 <Col className="text-center" xs={4} lg={2}>
-                  <div>ORA</div>
+                  <div>
+                    <BiTimeFive />
+                  </div>
                   <strong>{e.orario}</strong>
                 </Col>
                 <Col className="text-center" xs={4} lg={2}>
-                  <div>PERSONE</div>
+                  <div>
+                    <SlPeople />
+                  </div>
                   <strong>{e.numeropersone}</strong>
                 </Col>
                 <Col className="text-center" xs={12} lg={6}>

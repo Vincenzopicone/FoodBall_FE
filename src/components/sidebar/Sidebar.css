@@ -8,10 +8,16 @@
 .listSidebar {
   background: white;
   opacity: 0.9;
+  font-family: "Concert One", cursive;
+}
+
+.titleFoodball {
+  font-family: "Concert One", cursive;
 }
 
 .listSidebar:hover {
   cursor: pointer;
   background-color: lightgray;
   color: black;
+  font-family: "Concert One", cursive;
 }/*# sourceMappingURL=Sidebar.css.map */

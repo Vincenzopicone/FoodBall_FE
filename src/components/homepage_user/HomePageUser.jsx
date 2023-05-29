@@ -5,6 +5,7 @@ import CardPrenotazione from "./CardPrenotazione";
 import "./HomePageUser.css";
 import PersonalPage from "./PersonalPage";
 import CardEvento from "./CardEvento";
+import NewsSection from "../news_section/NewsSection";
 
 const HomePageUser = () => {
   const showReservationState = useSelector(
@@ -14,6 +15,7 @@ const HomePageUser = () => {
     (state) => state.show.showCreateReservation
   );
   const showPersonal = useSelector((state) => state.show.showPersonalPage);
+  const showNewsUserState = useSelector((state) => state.show.showNewsUser);
 
   return (
     <Container fluid className="homePageUser ">
@@ -25,6 +27,7 @@ const HomePageUser = () => {
           {showCreateReservationState === true && <CardEvento />}
           {showPersonal === true && <PersonalPage />}
           {showReservationState === true && <CardPrenotazione />}
+          {showNewsUserState === true && <NewsSection />}
         </Col>
       </Row>
     </Container>

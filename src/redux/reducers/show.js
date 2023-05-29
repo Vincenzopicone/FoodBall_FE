@@ -6,6 +6,9 @@ import {
   SHOW_PERSONALPAGE,
   SHOW_CREATE_EVENT,
   SHOW_EVENT_ADMIN,
+  SHOW_NEWS,
+  SHOW_HOME,
+  SHOW_NEWS_USER,
 } from "../action";
 const initialState = {
   showReservation: false,
@@ -15,6 +18,9 @@ const initialState = {
   showPersonalPage: false,
   showEventAdmin: true,
   showCreateEventAdmin: false,
+  showHome: true,
+  showNews: false,
+  showNewsUser: false,
 };
 
 const showReducer = (state = initialState, action) => {
@@ -33,6 +39,12 @@ const showReducer = (state = initialState, action) => {
       return { ...state, showEventAdmin: action.payload };
     case SHOW_CREATE_EVENT:
       return { ...state, showCreateEventAdmin: action.payload };
+    case SHOW_NEWS:
+      return { ...state, showNews: action.payload };
+    case SHOW_HOME:
+      return { ...state, showHome: action.payload };
+    case SHOW_NEWS_USER:
+      return { ...state, showNewsUser: action.payload };
     default:
       return state;
   }
