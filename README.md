@@ -1,70 +1,16 @@
-# Getting Started with Create React App
+Link repository BE: https://github.com/Vincenzopicone/FoodBall_BE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+⚽️ FoodBall
+Capstone Project di Vincenzo Picone
 
-## Available Scripts
+😋 PRESENTAZIONE DEL PROGETTO:
+FoodBall è un'applicazione web che permette agli utenti di trovare il locale perfetto per seguire la partita della propria squadra del cuore mentre si gustano le specialità culinarie locali. L'obiettivo principale dell'applicazione è di fornire un servizio completo per gli appassionati di calcio e cibo, offrendo informazioni sulle partite in corso e sui locali disponibili in tempo reale.
 
-In the project directory, you can run:
+🎯 OBIETTIVO:
+Per utilizzare FoodBall, gli utenti devono prima registrarsi al servizio fornendo le proprie informazioni personali, come il nome, l'indirizzo e-mail e la password. Una volta registrati, gli utenti possono effettuare la ricerca dei locali disponibili in base alla squadra che intendono seguire. L'applicazione mostrerà quindi una lista di locali disponibili, con le informazioni dettagliate. Inoltre, gli utenti possono seguire le partite in corso, accedendo alle informazioni in tempo reale sui risultati, i punteggi, le statistiche e le formazioni delle squadre. Gli utenti possono inoltre creare le proprie liste di preferiti per tenere traccia dei locali e delle squadre preferite.
 
-### `npm start`
+🤔 CONCLUSIONI:
+FoodBall è un'innovativa applicazione web che unisce due delle più grandi passioni degli italiani: il calcio e il cibo. Grazie alla sua interfaccia utente intuitiva e alle sue funzionalità avanzate, FoodBall offre un'esperienza completa e personalizzata per gli appassionati di calcio e cibo di tutto il mondo.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+👨🏻‍💻 TECNOLOGIE UTILIZZATE:
+L'interfaccia utente di FoodBall è stata sviluppata utilizzando le tecnologie HTML5, CSS3, Bootstrap e React.js, mentre il back-end è stato sviluppato utilizzando Java e Spring-Boot. L'applicazione utilizza inoltre API RESTfull di terze parti per ottenere informazioni aggiornate sulle partite in corso.
