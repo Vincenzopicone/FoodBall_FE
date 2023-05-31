@@ -4,18 +4,10 @@
   min-height: 100vh;
 }
 
-.welcomePageWhitNews {
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 1) 49%,
-    rgba(214, 215, 212, 1) 100%
-  );
-}
-
 .welcomePageBar {
   background: white;
   opacity: 0.9;
+  font-family: "Concert One", cursive;
 }
 .bgMatch {
   background: url("../assets/BG-partite.jpg");

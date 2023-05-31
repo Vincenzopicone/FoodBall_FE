@@ -1,19 +1,11 @@
-import {
-  Alert,
-  Badge,
-  Button,
-  Col,
-  Container,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import { Alert, Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { VscLocation } from "react-icons/vsc";
 import { BsCalendar3 } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import moment from "moment";
 import "moment/locale/it";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Burger from "../assets/Burger.png";
 import Ristorante from "../assets/restaurant.png";
 import Pub from "../assets/Pub.png";
@@ -138,11 +130,11 @@ const CardEvento = () => {
         setInvioReservation(false);
         setInvioOK(true);
         setInvioNOT_OK(false);
-        setEventState(false);
+        setEventState(true);
         setPostiSelezionati(1);
         setSpinner(false);
       } else {
-        setEventState(false);
+        setEventState(true);
         setInvioReservation(false);
         setInvioNOT_OK(true);
         setInvioOK(false);
@@ -323,11 +315,11 @@ const CardEvento = () => {
         </Col>
       </Row>
       <Row className="py-2 border border-secondary justify-content-center align-items-baseline bg-light rounded py-2 mt-2">
-        <Col xs={12} md={6} className="text-center mb-1">
+        {/* <Col xs={12} md={6} className="text-center mb-1">
           <h6>
             Ecco gli eventi a: <strong>{event[0]?.citta}</strong>
           </h6>
-        </Col>
+        </Col> */}
         <Col
           xs={12}
           md={6}

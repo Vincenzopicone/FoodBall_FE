@@ -11,3 +11,4 @@ export const SHOW_CREATE_EVENT = "SHOW_CREATE_EVENT";
 export const SHOW_HOME = "SHOW_HOME";
 export const SHOW_NEWS = "SHOW_NEWS";
 export const SHOW_NEWS_USER = "SHOW_NEWS_USER";
+export const SHOW_REGISTER = "SHOW_REGISTER";

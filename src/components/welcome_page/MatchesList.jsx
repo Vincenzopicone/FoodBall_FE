@@ -61,7 +61,9 @@ const MatchesList = () => {
     <Row className="d-flex justify-content-center align-items-center ">
       <Col
         xs={12}
-        lg={11}
+        md={12}
+        lg={12}
+        xl={11}
         className="bg-light border border-secondary rounded py-3 bgMatch"
       >
         <Row className="justify-content-center">
@@ -122,7 +124,7 @@ const MatchesList = () => {
                   variant="outline-secondary rounded-pill"
                   onClick={() => clickForward(page + 1)}
                 >
-                  PROSSIMI EVENTI
+                  PROSSIMI
                 </Button>
               </Col>
             </Row>

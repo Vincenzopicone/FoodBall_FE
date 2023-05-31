@@ -16,6 +16,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { useState } from "react";
+import Burger from "../assets/Burger.png";
+import Ristorante from "../assets/restaurant.png";
+import Pub from "../assets/Pub.png";
+import Pizzeria from "../assets/pizza.png";
 
 const Sidebar = (props) => {
   const dispatch = useDispatch();
@@ -49,12 +53,40 @@ const Sidebar = (props) => {
   return (
     <>
       <Row className="d-flex justify-content-center align-items-center py-2 mb-">
-        <img
+        {/* <img
           className="rounded-circle mb-3"
           src={PicFoto}
           style={{ height: "90px", width: "120px" }}
           alt="PlaceHolder profilo"
-        />
+        /> */}
+        {props.profilo.locale.tipolocale === "RISTORANTE" && (
+          <img
+            style={{ height: "90px", width: "120px" }}
+            src={Ristorante}
+            alt="IconaRistorante"
+          />
+        )}
+        {props.profilo.locale.tipolocale === "PIZZERIA" && (
+          <img
+            style={{ height: "90px", width: "120px" }}
+            src={Pizzeria}
+            alt="IconaPizzeria"
+          />
+        )}
+        {props.profilo.locale.tipolocale === "PUB" && (
+          <img
+            style={{ height: "90px", width: "120px" }}
+            src={Pub}
+            alt="IconaPub"
+          />
+        )}
+        {props.profilo.locale.tipolocale === "BURGER" && (
+          <img
+            style={{ height: "90px", width: "120px" }}
+            src={Burger}
+            alt="IconaBurger"
+          />
+        )}
         <h6>Bentornato,</h6>{" "}
         <h6>
           <strong>{props.profilo.name}</strong>

@@ -2,7 +2,7 @@ import Burger from "../assets/Burger.png";
 import Ristorante from "../assets/restaurant.png";
 import Pub from "../assets/Pub.png";
 import Pizzeria from "../assets/pizza.png";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 const RestaurantList = () => {
@@ -27,14 +27,17 @@ const RestaurantList = () => {
       }
     } catch {}
   };
+
   useEffect(() => {
     getLocale();
   }, []);
+
   return (
     <Row className="d-flex justify-content-center align-items-center mt-3">
       <Col
         xs={12}
-        lg={11}
+        lg={12}
+        xl={11}
         className="bg-light border border-secondary rounded py-3"
       >
         <Row className="d-flex justify-content-center my-3">

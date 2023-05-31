@@ -1,3 +1,12 @@
 .bodyNews {
   min-height: 100vh;
 }
+
+.pageNews {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 49%,
+    rgba(214, 215, 212, 1) 100%
+  );
+}

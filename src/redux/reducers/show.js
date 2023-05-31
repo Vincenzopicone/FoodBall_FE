@@ -9,6 +9,7 @@ import {
   SHOW_NEWS,
   SHOW_HOME,
   SHOW_NEWS_USER,
+  SHOW_REGISTER,
 } from "../action";
 const initialState = {
   showReservation: false,
@@ -21,6 +22,7 @@ const initialState = {
   showHome: true,
   showNews: false,
   showNewsUser: false,
+  showRegister: false,
 };
 
 const showReducer = (state = initialState, action) => {
@@ -45,6 +47,8 @@ const showReducer = (state = initialState, action) => {
       return { ...state, showHome: action.payload };
     case SHOW_NEWS_USER:
       return { ...state, showNewsUser: action.payload };
+    case SHOW_REGISTER:
+      return { ...state, showRegister: action.payload };
     default:
       return state;
   }

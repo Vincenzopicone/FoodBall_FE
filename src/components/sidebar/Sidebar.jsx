@@ -1,6 +1,7 @@
 import { Button, Col } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
 import { BsBook } from "react-icons/bs";
+import { BiNews } from "react-icons/bi";
 import { FiPower } from "react-icons/fi";
 import { GiSoccerBall } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
@@ -138,7 +139,7 @@ const Sidebar = () => {
       >
         <h6 className=" me-3">
           <span className="iconSectionProfile">
-            <CgProfile />{" "}
+            <BiNews />{" "}
           </span>
           <span className="d-none d-md-inline">News</span>
         </h6>

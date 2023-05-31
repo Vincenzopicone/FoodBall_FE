@@ -14,6 +14,7 @@ const PersonalPage = () => {
   const [indirizzo, setIndirizzo] = useState();
   const [citta, setCitta] = useState();
   const [telefono, setTelefono] = useState();
+
   const clickModifyProfile = () => {
     setInvioModifica(true);
   };
@@ -31,7 +32,6 @@ const PersonalPage = () => {
           },
         }
       );
-
       const data = await response.json();
       if (response.ok) {
         setProfilo(data);
@@ -66,9 +66,8 @@ const PersonalPage = () => {
           }),
         }
       );
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         setProfilo(data);
         setInvioModifica(false);
         setInvioOK(true);
@@ -80,9 +79,10 @@ const PersonalPage = () => {
       }
     } catch (error) {}
   };
+
   useEffect(() => {
     getProfilo();
-  }, []);
+  }, [invioOK, invioNOT_OK]);
 
   useEffect(() => {
     setInvioModifica(false);
@@ -95,11 +95,13 @@ const PersonalPage = () => {
     <>
       <Row>
         {invioOK === true && (
-          <Alert variant={"success"}>Modifica effettuata.</Alert>
+          <Alert variant={"success rounded-pill text-center"}>
+            Modifica effettuata.
+          </Alert>
         )}
 
         {invioNOT_OK === true && (
-          <Alert variant={"danger"}>
+          <Alert variant={"danger  rounded-pill text-center"}>
             Modifica non effettuata. Controllare i dati inseriti.
           </Alert>
         )}

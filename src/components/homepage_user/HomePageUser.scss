@@ -19,6 +19,10 @@
 .sidebar {
   border-right: 1px lightgray solid;
 }
+.goUp {
+  position: sticky;
+  top: 80vh;
+}
 
 .searchSection {
   background-image: url("../assets/BG-SearchBar.jpg");
