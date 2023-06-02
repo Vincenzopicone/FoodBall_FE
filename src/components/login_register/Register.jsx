@@ -6,7 +6,6 @@ import { SHOW_HOME, SHOW_NEWS, SHOW_REGISTER } from "../../redux/action";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 const Register = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [role, setRole] = useState([]);
   const [username, setUsername] = useState("");
@@ -34,11 +33,10 @@ const Register = () => {
   };
   const sendRegister = () => {
     postRegister();
-    setRegisterNotOK(false);
   };
-  const sendRegisterAdmin = () => {
-    postRegister();
-    setRegisterNotOK(false);
+
+  const registerComplete = () => {
+    dispatch({ type: SHOW_HOME, payload: true });
   };
 
   const clickShowHome = () => {
@@ -67,20 +65,23 @@ const Register = () => {
         }),
       });
 
-      const data = response.json();
-
       if (response.ok) {
+        const data = response.json();
+        setMsg(data.message);
         setRegisterNotOK(false);
         setRegisterOK(true);
-        setMsg(data.message);
-        setInvioRegisterLocale(true);
         if (roleSelect === "ROLE_USER") {
-          navigate("/");
+          registerComplete();
+        }
+
+        if (roleSelect === "ROLE_ADMIN") {
+          postRegisterAdmin();
         }
       } else {
+        const data = await response.json();
+        setMsg(data.message);
         setRegisterNotOK(true);
         setRegisterOK(false);
-        setMsg(data.message);
       }
     } catch (error) {}
   };
@@ -104,21 +105,15 @@ const Register = () => {
           }),
         }
       );
-      const data = response.json();
+
       if (response.ok) {
-        setInvioRegisterLocale(false);
-        navigate("/");
+        const data = await response.json();
+        registerComplete();
       } else {
-        setInvioRegisterLocale(false);
+        const data = await response.json();
       }
     } catch {}
   };
-
-  useEffect(() => {
-    if (invioRegisterLocale === true && roleSelect === "ROLE_ADMIN") {
-      postRegisterAdmin();
-    }
-  }, [invioRegisterLocale]);
 
   return (
     <Row className="justify-content-center pt-5">
@@ -299,22 +294,22 @@ const Register = () => {
             xs={12}
             className="d-flex justify-content-center align-content-center my-3"
           >
-            {roleSelect === "ROLE_USER" && (
-              <Button
-                variant="outline-secondary rounded-pill"
-                onClick={() => sendRegister()}
-              >
-                REGISTRATI
-              </Button>
-            )}
-            {roleSelect === "ROLE_ADMIN" && (
-              <Button
-                variant="outline-secondary rounded-pill"
-                onClick={() => sendRegisterAdmin()}
-              >
-                REGISTRATI
-              </Button>
-            )}
+            {/* {roleSelect === "ROLE_USER" && ( */}
+            <Button
+              variant="outline-secondary rounded-pill"
+              onClick={() => sendRegister()}
+            >
+              REGISTRATI
+            </Button>
+            {/* // )}
+            // {roleSelect === "ROLE_ADMIN" && (
+            //   <Button
+            //     variant="outline-secondary rounded-pill"
+            //     onClick={() => sendRegisterAdmin()}
+            //   >
+            //     REGISTRATI
+            //   </Button>
+            // )} */}
           </Col>
         </Row>
 
