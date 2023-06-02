@@ -83,13 +83,18 @@ const MatchesList = () => {
             {matchList &&
               matchList.map((p) => (
                 <Row key={p.id} className="justify-content-center mb-1">
-                  <Col xs={6} sm={3} md={2} className="text-center">
+                  <Col xs={6} sm={3} md={2} className="text-end text-md-center">
                     <span>
-                      <BsCalendarDate></BsCalendarDate>
+                      <BsCalendarDate />
                     </span>{" "}
                     {moment(p.data).format("DD-MM")}
                   </Col>
-                  <Col xs={6} sm={3} md={3} className="text-center">
+                  <Col
+                    xs={6}
+                    sm={3}
+                    md={3}
+                    className="text-start text-md-center"
+                  >
                     <span>
                       <BiTime />
                     </span>{" "}

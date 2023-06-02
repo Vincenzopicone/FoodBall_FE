@@ -70,6 +70,7 @@ const WelcomePage = () => {
     }
     setErroreLogin(false);
   }, [invioLogin]);
+
   const showNewsState = useSelector((state) => state.show.showNews);
   const showHomeState = useSelector((state) => state.show.showHome);
   const showRegisterState = useSelector((state) => state.show.showRegister);
@@ -167,6 +168,15 @@ const WelcomePage = () => {
                 {erroreLogin === true && (
                   <p className="text-danger"> Username o password errata!</p>
                 )}
+              </div>
+              <div className="d-flex flex-column justify-content-center align-items-center mt-2">
+                <div>Non sei registrato?</div>
+                <div
+                  className="text-primary"
+                  onClick={() => clickShowRegister()}
+                >
+                  Clicca qui!
+                </div>
               </div>
             </Dropdown.Menu>
           </Dropdown>
